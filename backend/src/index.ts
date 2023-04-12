@@ -38,10 +38,5 @@ app.get("/comprehension-level", async (req, res) => {
   }
 });
 
-// Test. To be deleted later.
-app.get("/", (req, res) => {
-  res.status(200).send("Hi! This is LectureLink!");
-});
-
 // Listening on PORT 8080
 app.listen(port, () => console.log(`Server started on port ${port}`));

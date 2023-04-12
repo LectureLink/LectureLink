@@ -10,3 +10,42 @@ datasource db {
   url      = "file:./dev.db"
 }
 
+model User {
+  id    Int    @id @default(autoincrement())
+  email String @unique
+
+  student   Student?
+  professor Professor?
+}
+
+model Student {
+  user           User             @relation(fields: [userId], references: [id])
+  userId         Int              @id
+  classes        Class[]
+  EngagementData EngagementData[]
+}
+
+model Professor {
+  user    User    @relation(fields: [userId], references: [id])
+  userId  Int     @id
+  classes Class[]
+}
+
+model Class {
+  id                Int              @id @default(autoincrement())
+  name              String
+  taughtBy          Professor        @relation(fields: [professorUserId], references: [userId])
+  studentsAttending Student[]
+  professorUserId   Int
+  EngagementData    EngagementData[]
+}
+
+model EngagementData {
+  id              Int     @id @default(autoincrement())
+  engagementLevel Int
+  submittedBy     Student @relation(fields: [studentUserId], references: [userId])
+  studentUserId   Int
+  submittedTo     Class   @relation(fields: [classId], references: [id])
+  classId         Int
+  timestamp       DateTime @default(now())
+}

@@ -15,9 +15,11 @@ const LoginScreen = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [rememberMe, setRememberMe] = useState(false);
-  const nagivation = useNavigation();
+  const navigation = useNavigation();
 
-  const handleLogin = () => {};
+  const handleLogin = () => {
+    navigation.navigate("UserClasses");
+  };
 
   const handleForgotPassword = () => {
     Alert.alert(
@@ -29,7 +31,7 @@ const LoginScreen = () => {
   };
 
   const handleSignup = () => {
-    nagivation.navigate("Signup");
+    navigation.navigate("Signup");
   };
 
   return (

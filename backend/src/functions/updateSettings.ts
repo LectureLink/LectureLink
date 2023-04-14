@@ -10,7 +10,7 @@ const prisma = new PrismaClient();
  * @param passiveCheckIn boolean representing whether or not passive checkin is enabled
  * @returns a Class object of the updated class.
  */
-async function updateSettings(
+export async function updateSettings(
   classId: number,
   cooldownMinutes: number,
   passiveCheckIn: boolean

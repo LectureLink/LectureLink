@@ -25,7 +25,10 @@ const prisma = new PrismaClient();
  * @param professorUserId number representing the Id of the professor
  * @returns a Promise of a Class object
  */
-async function addClass(name: string, professorUserId: number): Promise<Class> {
+export async function addClass(
+  name: string,
+  professorUserId: number
+): Promise<Class> {
   const professor: Professor | null = await prisma.professor.findUnique({
     where: { userId: professorUserId },
   });
@@ -51,7 +54,7 @@ async function addClass(name: string, professorUserId: number): Promise<Class> {
  * @param classId number id of the class to be added
  * @returns a Promise of the Student object
  */
-async function addStudentToClass(
+export async function addStudentToClass(
   studentId: number,
   classId: number
 ): Promise<Student> {
@@ -91,7 +94,7 @@ Adds a engagement data to the database under a given student in a given session.
 @param sessionId number id of the session
 @returns a Promise of an EngagementData object
 */
-async function addEngagementData(
+export async function addEngagementData(
   engagementLevel: number,
   studentId: number,
   sessionId: number
@@ -135,7 +138,7 @@ async function addEngagementData(
  * @param classId number id of the class
  * @returns a Promise of a Session object
  */
-async function addSession(classId: number): Promise<Session> {
+export async function addSession(classId: number): Promise<Session> {
   const currClass = await prisma.class.findUnique({
     where: { id: classId },
   });

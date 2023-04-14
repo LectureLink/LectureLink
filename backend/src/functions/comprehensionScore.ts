@@ -5,13 +5,13 @@ const prisma = new PrismaClient();
  * Gets the average comprehension level of a class within a certain timespan.
  *
  * @param timespan number representing span of time (seconds) to collect data from
- * @param classId number representing the ID of the class
+ * @param sessionId number representing the ID of the session
  * @param classSize number representing the size of the class
  * @returns the average score or -1 if less than 50% of the class responded
  */
 async function getComprehensionLevel(
   timespan: number,
-  classId: number,
+  sessionId: number,
   classSize: number
 ): Promise<Number> {
   if (typeof timespan !== "number") {
@@ -26,7 +26,7 @@ async function getComprehensionLevel(
 
   const data = await prisma.engagementData.findMany({
     where: {
-      classId,
+      sessionId,
       timestamp: {
         gte: startTime,
         lte: endTime,

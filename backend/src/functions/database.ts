@@ -5,6 +5,7 @@ import {
   Student,
   Class,
   EngagementData,
+  Session,
 } from "@prisma/client";
 
 const prisma = new PrismaClient();
@@ -16,60 +17,6 @@ const prisma = new PrismaClient();
  *
  * //////////////////////////////////////////////////////////////////////
  */
-
-/**
- * Adds a new user as a professor to the database.
- *
- * @param email string email of the professor
- * @returns a Promise of a Professor object
- */
-async function addProfessor(email: string): Promise<Professor> {
-  const newUser: User = await prisma.user.create({
-    data: {
-      email: email,
-      professor: {
-        create: {},
-      },
-    },
-  });
-
-  const newProfessor: Professor | null = await prisma.professor.findUnique({
-    where: { userId: newUser.id },
-  });
-
-  if (!newProfessor) {
-    throw new Error("Professor user not created.");
-  }
-
-  return newProfessor;
-}
-
-/**
- * Adds a new user as a student to the database.
- *
- * @param email string email of the student
- * @returns a Promise of a Student object
- */
-async function addStudent(email: string): Promise<Student> {
-  const newUser: User = await prisma.user.create({
-    data: {
-      email: email,
-      student: {
-        create: {},
-      },
-    },
-  });
-
-  const newStudent: Student | null = await prisma.student.findUnique({
-    where: { userId: newUser.id },
-  });
-
-  if (!newStudent) {
-    throw new Error("Professor user not created.");
-  }
-
-  return newStudent;
-}
 
 /**
  * Adds a new class to the database.
@@ -137,32 +84,31 @@ async function addStudentToClass(
 }
 
 /**
- * Adds a engagement data to the database under a given student in a given class.
- *
- * @param engagementLevel number value 0-100 representing level of engagement
- * @param studentId number id of the student
- * @param classId number id of the class
- * @returns a Promise of an EngagementData object
- */
+
+Adds a engagement data to the database under a given student in a given session.
+@param engagementLevel number value 0-100 representing level of engagement
+@param studentId number id of the student
+@param sessionId number id of the session
+@returns a Promise of an EngagementData object
+*/
 async function addEngagementData(
   engagementLevel: number,
   studentId: number,
-  classId: number
+  sessionId: number
 ): Promise<EngagementData> {
   const student: Student | null = await prisma.student.findUnique({
     where: { userId: studentId },
   });
-
   if (!student) {
     throw new Error(`The student of id ${studentId} does not exist.`);
   }
 
-  const currClass: Class | null = await prisma.class.findUnique({
-    where: { id: classId },
+  const session: Session | null = await prisma.session.findUnique({
+    where: { id: sessionId },
   });
 
-  if (!currClass) {
-    throw new Error(`The class of id ${classId} does not exist.`);
+  if (!session) {
+    throw new Error(`The session of id ${sessionId} does not exist.`);
   }
 
   if (0 > engagementLevel || engagementLevel > 100) {
@@ -176,9 +122,39 @@ async function addEngagementData(
       data: {
         engagementLevel: engagementLevel,
         studentUserId: studentId,
-        classId: classId,
+        sessionId: sessionId,
       },
     });
 
   return newEngagementData;
+}
+
+/**
+ * Adds a new session to the database for a given class.
+ *
+ * @param classId number id of the class
+ * @returns a Promise of a Session object
+ */
+async function addSession(classId: number): Promise<Session> {
+  const currClass = await prisma.class.findUnique({
+    where: { id: classId },
+  });
+
+  if (!currClass) {
+    throw new Error(`The class of id ${classId} does not exist.`);
+  }
+
+  const newSession = await prisma.session.create({
+    data: {
+      class: {
+        connect: { id: classId },
+      },
+    },
+  });
+
+  if (!newSession) {
+    throw new Error("Session not created.");
+  }
+
+  return newSession;
 }

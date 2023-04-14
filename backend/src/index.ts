@@ -14,17 +14,17 @@ app.use(
 // a given class size.
 app.get("/comprehension-level", async (req, res) => {
   try {
-    const { timespan, classId, classSize } = req.query;
+    const { timespan, sessionId, classSize } = req.query;
 
-    if (!timespan || !classSize || !classId) {
+    if (!timespan || !classSize || !sessionId) {
       throw new Error(
-        "Missing timespan (number), classSize (number), and/or classId (number)."
+        "Missing timespan (number), classSize (number), and/or sessionId (number)."
       );
     }
 
     const compLevel = await getComprehensionLevel(
       Number(timespan),
-      Number(classId),
+      Number(sessionId),
       Number(classSize)
     );
 

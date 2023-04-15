@@ -22,7 +22,7 @@ POST http://localhost:8081/login
 Content-Type: application/json; charset=utf-8
 
 {
-    "email": "testprof@msn.com",
+    "email": "teststudent@msn.com",
     "password": "password"
 }
 
@@ -32,27 +32,27 @@ POST http://localhost:8081/classes
 Content-Type: application/json; charset=utf-8
 
 {
-    "name": "ENTR 1000",
+    "name": "ENTR 1200",
     "professorUserId": "1"
 }
 
 ###
 
-POST http://localhost:8081/students/2/classes/1
+POST http://localhost:8081/students/2/classes/2
 Content-Type: application/json; charset=utf-8
 
 ###
 
-POST http://localhost:8081/classes/1/sessions
+POST http://localhost:8081/classes/2/sessions
 Content-Type: application/json; charset=utf-8
 
 ###
 
-POST http://localhost:8081/students/2/sessions/1/engagement
+POST http://localhost:8081/students/2/sessions/2/engagement
 Content-Type: application/json; charset=utf-8
 
 {
-    "engagementLevel": "85"
+    "engagementLevel": "80"
 }
 
 ###
@@ -66,14 +66,14 @@ GET http://localhost:8081/comprehension-level
 Content-Type: application/json; charset=utf-8
 
 {
-    "timespan": "1000",
-    "sessionId": "1",
+    "timespan": "100",
+    "sessionId": "2",
     "classSize": "1"
 }
 
 ###
 
-PUT http://localhost:8081/classes/1/settings
+PUT http://localhost:8081/classes/2/settings
 Content-Type: application/json; charset=utf-8
 
 {
@@ -83,5 +83,5 @@ Content-Type: application/json; charset=utf-8
 
 ###
 
-GET http://localhost:8081/sessions/1/average-engagement-level
+GET http://localhost:8081/sessions/2/average-engagement-level
 Content-Type: application/json; charset=utf-8

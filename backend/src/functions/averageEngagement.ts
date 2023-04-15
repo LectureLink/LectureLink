@@ -8,7 +8,9 @@ const prisma = new PrismaClient();
  * @param sessionId number id representing a session
  * @returns a number of the average engagement level for that session
  */
-async function getAverageEngagementLevel(sessionId: number): Promise<number> {
+export async function getAverageEngagementLevel(
+  sessionId: number
+): Promise<number> {
   const session: Session | null = await prisma.session.findUnique({
     where: { id: sessionId },
   });

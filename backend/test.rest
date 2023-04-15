@@ -1,0 +1,87 @@
+POST http://localhost:8081/professors
+Content-Type: application/json; charset=utf-8
+
+{
+    "email": "testprof@msn.com",
+    "password": "password"
+}
+
+###
+
+POST http://localhost:8081/student
+Content-Type: application/json; charset=utf-8
+
+{
+    "email": "teststudent@msn.com",
+    "password": "password"
+}
+
+###
+
+POST http://localhost:8081/login
+Content-Type: application/json; charset=utf-8
+
+{
+    "email": "testprof@msn.com",
+    "password": "password"
+}
+
+###
+
+POST http://localhost:8081/classes
+Content-Type: application/json; charset=utf-8
+
+{
+    "name": "ENTR 1000",
+    "professorUserId": "1"
+}
+
+###
+
+POST http://localhost:8081/students/2/classes/1
+Content-Type: application/json; charset=utf-8
+
+###
+
+POST http://localhost:8081/classes/1/sessions
+Content-Type: application/json; charset=utf-8
+
+###
+
+POST http://localhost:8081/students/2/sessions/1/engagement
+Content-Type: application/json; charset=utf-8
+
+{
+    "engagementLevel": "85"
+}
+
+###
+
+GET http://localhost:8081/students/2/sessions/1
+Content-Type: application/json; charset=utf-8
+
+###
+
+GET http://localhost:8081/comprehension-level
+Content-Type: application/json; charset=utf-8
+
+{
+    "timespan": "1000",
+    "sessionId": "1",
+    "classSize": "1"
+}
+
+###
+
+PUT http://localhost:8081/classes/1/settings
+Content-Type: application/json; charset=utf-8
+
+{
+    "cooldownMinutes": "5",
+    "passiveCheckIn": "true"
+}
+
+###
+
+GET http://localhost:8081/sessions/1/average-engagement-level
+Content-Type: application/json; charset=utf-8

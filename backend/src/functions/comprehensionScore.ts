@@ -9,7 +9,7 @@ const prisma = new PrismaClient();
  * @param classSize number representing the size of the class
  * @returns the average score or -1 if less than 50% of the class responded
  */
-async function getComprehensionLevel(
+export async function getComprehensionLevel(
   timespan: number,
   sessionId: number,
   classSize: number

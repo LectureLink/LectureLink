@@ -10,7 +10,7 @@ const prisma = new PrismaClient();
  * @param password string for professor's password
  * @returns Professor object
  */
-async function createProfessor(
+export async function createProfessor(
   email: string,
   password: string
 ): Promise<Professor> {
@@ -38,7 +38,7 @@ async function createProfessor(
  * @param password string representing student's password
  * @returns Student object
  */
-async function createStudent(
+export async function createStudent(
   email: string,
   password: string
 ): Promise<Student> {
@@ -66,7 +66,7 @@ async function createStudent(
  * @param password string of the inputed password
  * @returns the User object or null if login failed
  */
-async function verifyLogin(
+export async function verifyLogin(
   email: string,
   password: string
 ): Promise<User | null> {
@@ -93,7 +93,7 @@ async function verifyLogin(
  * @param sessionId number representing the id of the session
  * @returns boolean of whether or not the student is permitted to join the session.
  */
-async function isStudentInSessionClass(
+export async function isStudentInSessionClass(
   studentId: number,
   sessionId: number
 ): Promise<boolean> {

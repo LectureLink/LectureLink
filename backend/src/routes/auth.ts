@@ -54,10 +54,10 @@ export const createStudentRouteHandler = async (
  */
 export const verifyLoginRouteHandler = async (req: Request, res: Response) => {
   try {
-    const { email, password } = req.body;
-    const user = await verifyLogin(email, password);
+    const { email, password, role } = req.body;
+    const user = await verifyLogin(email, password, role);
     if (!user) {
-      res.status(401).json({ message: "Invalid password or email." });
+      res.status(401).json({ message: "Invalid password, email, or role." });
     } else {
       res.status(200).json(user);
     }

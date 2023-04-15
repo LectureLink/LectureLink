@@ -60,28 +60,48 @@ export async function createStudent(
 }
 
 /**
- * Verifies if a given email and password can login a user.
+ * Verifies if a given email and password can login a user of a certain role.
  *
  * @param email string of the inputed email
  * @param password string of the inputed password
+ * @param role string that is either "student" or "professor"
  * @returns the User object or null if login failed
  */
 export async function verifyLogin(
   email: string,
-  password: string
+  password: string,
+  role: string
 ): Promise<User | null> {
   const user = await prisma.user.findUnique({
     where: {
       email: email,
     },
+    include: {
+      student: true,
+      professor: true,
+    },
   });
+
   if (!user) {
     return null;
   }
+
+  let userRole = null;
+  if (user.student && role === "student") {
+    userRole = user.student;
+  } else if (user.professor && role === "professor") {
+    userRole = user.professor;
+  }
+
+  if (!userRole) {
+    return null;
+  }
+
   const passwordMatch = await bcrypt.compare(password, user.password);
   if (!passwordMatch) {
     return null;
   }
+
   return user;
 }
 

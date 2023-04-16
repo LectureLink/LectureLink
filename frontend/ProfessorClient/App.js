@@ -1,6 +1,13 @@
-import React from "react";
+import React, { useState } from "react";
 import Navigator from "./navigation/navigator";
+import UserContext from "./userContext";
 
 export default function App() {
-  return <Navigator />;
+  const [userId, setUserId] = useState(null);
+
+  return (
+    <UserContext.Provider value={{ userId, setUserId }}>
+      <Navigator />
+    </UserContext.Provider>
+  );
 }

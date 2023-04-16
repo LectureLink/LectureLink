@@ -15,6 +15,8 @@ import {
   addEngagementDataRouteHandler,
   addSessionRouteHandler,
   addStudentToClassRouteHandler,
+  getClassRouteHandler,
+  getClassesTaughtByProfessorRouteHandler,
 } from "./routes/database";
 import { getComprehensionLevelRouteHandler } from "./routes/comprehensionScore";
 import { updateClassSettingsRouteHandler } from "./routes/updateSettings";
@@ -23,7 +25,7 @@ import { getAverageEngagementLevelRouteHandler } from "./routes/averageEngagemen
 // Using cors with access to client at PORT 3000
 app.use(
   cors({
-    origin: "*",
+    origin: ["http://localhost:3000", "exp://10.110.14.70:19000"],
   })
 );
 
@@ -78,6 +80,15 @@ app.post(
 // Adds a session
 app.post("/classes/:classId/sessions", addSessionRouteHandler);
 
+// Gets classes that a professor teaches
+app.get(
+  "/professors/:professorId/classes",
+  getClassesTaughtByProfessorRouteHandler
+);
+
+// Gets a class of a given class id.
+app.get("/classes/:classId", getClassRouteHandler);
+
 /**
  * /////////////////////////////////////////////////////////////////////
  *
@@ -88,7 +99,10 @@ app.post("/classes/:classId/sessions", addSessionRouteHandler);
 
 // This route queries for a comprehension level in a given timespan for
 // a given class size.
-app.get("/comprehension-level", getComprehensionLevelRouteHandler);
+app.get(
+  "/sessions/:sessionId/classSize/:classSize/timespan/:timespan",
+  getComprehensionLevelRouteHandler
+);
 
 // Updates the settings of a class
 app.put("/classes/:classId/settings", updateClassSettingsRouteHandler);

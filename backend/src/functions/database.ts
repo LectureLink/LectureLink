@@ -13,7 +13,7 @@ const prisma = new PrismaClient();
 /**
  * /////////////////////////////////////////////////////////////////////
  *
- * The functions in the following portion involve adding to the database.
+ * The functions in the following portion involves POST and GETS to db.
  *
  * //////////////////////////////////////////////////////////////////////
  */
@@ -160,4 +160,36 @@ export async function addSession(classId: number): Promise<Session> {
   }
 
   return newSession;
+}
+
+/**
+ * Gets all classes the a professor of a given id teaches.
+ *
+ * @param professorId number id of the professor
+ * @returns promise of Class array
+ */
+export async function getClassesTaughtByProfessor(
+  professorId: number
+): Promise<Class[]> {
+  const classes = await prisma.class.findMany({
+    where: {
+      professorUserId: professorId,
+    },
+  });
+  return classes;
+}
+
+/**
+ * Gets the class of a given class id.
+ *
+ * @param classId number id of the class
+ * @returns the Class if it exists
+ */
+export async function getClassById(classId: number) {
+  const classInfo = await prisma.class.findUnique({
+    where: {
+      id: classId,
+    },
+  });
+  return classInfo;
 }

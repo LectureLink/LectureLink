@@ -12,7 +12,10 @@ export const getComprehensionLevelRouteHandler = async (
   res: Response
 ) => {
   try {
-    const { timespan, sessionId, classSize } = req.body;
+    console.log("HERE1");
+    const timespan = parseInt(req.params.timespan);
+    const sessionId = parseInt(req.params.sessionId);
+    const classSize = parseInt(req.params.classSize);
 
     if (!timespan || !classSize || !sessionId) {
       throw new Error(
@@ -20,17 +23,16 @@ export const getComprehensionLevelRouteHandler = async (
       );
     }
 
+    console.log("HERE");
+
     const compLevel = await getComprehensionLevel(
-      Number(timespan),
-      Number(sessionId),
-      Number(classSize)
+      timespan,
+      sessionId,
+      classSize
     );
 
-    if (compLevel === -1) {
-      throw new Error("Inadequate number of responses for reliable analysis.");
-    } else {
-      res.status(200).json({ comprehensionLevel: compLevel });
-    }
+    console.log(compLevel);
+    res.status(200).json({ comprehensionLevel: compLevel });
   } catch (err: any) {
     res.status(400).json({ error: err.message });
   }

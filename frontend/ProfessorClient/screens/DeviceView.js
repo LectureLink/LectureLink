@@ -1,19 +1,59 @@
-import React from "react";
-import { View, Text, TouchableOpacity, StyleSheet } from "react-native";
+import React, { useState } from "react";
+import { View, Text, TouchableOpacity, StyleSheet, Alert } from "react-native";
 import ScoreDisplay from "../components/ScoreDisplay";
 import colors from "../styles/colors";
 
-function DeviceView() {
-  function handlePrev() {}
+function DeviceView({ route }) {
+  const { sessionId, title } = route.params;
+  const [score, setScore] = useState(null);
+  const DEFAULT_WAIT_TIME = 30;
 
-  function handleNext() {}
+  // A feature to be added in future releases
+  function handlePrev() {
+    // Future code here...
+  }
 
-  function handleRequestEngagement() {}
+  // A feature to be added in future releases
+  function handleNext() {
+    // Future code here...
+  }
+
+  async function handleRequestEngagement() {
+    let currScore = DEFAULT_WAIT_TIME;
+    const timer = setInterval(() => {
+      setScore(currScore);
+      currScore--;
+      if (currScore < 0) {
+        clearInterval(timer);
+        fetchData();
+      }
+    }, 1000);
+  }
+
+  async function fetchData() {
+    try {
+      const response = await fetch(
+        `http://localhost:8081/sessions/${sessionId}/classSize/${1}/timespan/${DEFAULT_WAIT_TIME}`
+      );
+      const data = await response.json();
+      if (response.ok) {
+        setScore(data.comprehensionLevel);
+      } else {
+        throw new Error("Problem in retrieving data.");
+      }
+    } catch (error) {
+      Alert.alert(
+        "Unable to retrieve data",
+        "We were not able to collect engagement data for your class session. Please try again later.",
+        [{ text: "OK" }]
+      );
+    }
+  }
 
   return (
     <View style={styles.container}>
-      <Text style={styles.title}>{"ENTR 3000"}</Text>
-      <ScoreDisplay score={90} />
+      <Text style={styles.title}>{title}</Text>
+      <ScoreDisplay score={score} />
       <View style={styles.buttonContainer}>
         <TouchableOpacity style={styles.button} onPress={handlePrev}>
           <Text style={styles.buttonText}>Prev</Text>

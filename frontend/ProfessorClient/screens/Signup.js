@@ -6,6 +6,7 @@ import {
   TextInput,
   TouchableOpacity,
   Image,
+  Alert,
 } from "react-native";
 import { useNavigation } from "@react-navigation/native";
 import UserContext from "../userContext.js";
@@ -32,11 +33,19 @@ const Signup = () => {
       });
       const data = await response.json();
       if (response.ok) {
-        setUserId(data.professor.userId);
+        setUserId(data.userId);
         navigation.navigate("UserClasses");
+        setEmail("");
+        setPassword("");
       }
     } catch (error) {
-      console.error(error);
+      Alert.alert(
+        "Error",
+        "Unable to create professor account. Please try again later.",
+        [{ text: "OK" }]
+      );
+      setEmail("");
+      setPassword("");
     }
   };
 

@@ -37,6 +37,8 @@ const Login = () => {
       if (response.ok) {
         setUserId(data.professor.userId);
         navigation.navigate("UserClasses");
+        setEmail("");
+        setPassword("");
       } else {
         Alert.alert(
           "Email or Password Incorrect",

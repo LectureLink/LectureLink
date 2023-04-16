@@ -1,0 +1,39 @@
+.container {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+  background-color: var(--secondaryBlue);
+}
+
+.logo {
+  height: 61px;
+  object-fit: cover;
+  align-self: center;
+  margin-top: 40px;
+}
+
+.title {
+  font-size: 24px;
+  font-weight: bold;
+  margin: 20px;
+  text-align: center;
+  margin-top: 20px;
+  color: var(--white);
+}
+
+.scrollView {
+  flex: 1;
+  padding: 10px 20px;
+}
+
+.addClassButton {
+  background-color: var(--white);
+  color: var(--primaryBlue);
+  font-weight: bold;
+  font-size: 16px;
+  margin-top: 10px;
+  margin-bottom: 20px;
+  padding: 10px;
+  border: none;
+  cursor: pointer;
+}

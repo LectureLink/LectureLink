@@ -1,0 +1,158 @@
+.container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 20px;
+  background-color: grey;
+}
+
+.logo {
+  align-self: center;
+  margin-top: 20px;
+}
+
+.welcomeContainer {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  margin-top: 20px;
+}
+
+.welcomeText {
+  font-size: 24px;
+  font-weight: bold;
+}
+
+.signupContainer {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  margin-top: 10px;
+}
+
+.signupText {
+  font-size: 16px;
+}
+
+.signupLink {
+  font-size: 16px;
+  color: blue;
+  text-decoration: none;
+  background-color: transparent;
+  border: none;
+  padding: 0;
+  cursor: pointer;
+}
+
+.label {
+  font-size: 16px;
+  font-weight: bold;
+  margin-top: 20px;
+}
+
+.input {
+  height: 40px;
+  border-color: #ccc;
+  border-width: 1px;
+  border-radius: 5px;
+  padding: 0 10px;
+  margin-top: 10px;
+  background-color: white;
+}
+
+.optionsContainer {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-between;
+  margin-top: 20px;
+}
+
+.checkboxContainer {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+}
+
+.checkbox {
+  width: 20px;
+  height: 20px;
+  border-radius: 5px;
+  border-width: 1px;
+  border-color: #ccc;
+  align-items: center;
+  justify-content: center;
+  background-color: white;
+  margin-right: 10px;
+  cursor: pointer;
+}
+
+.checkboxText {
+  font-size: 16px;
+}
+
+.checkboxLabel {
+  font-size: 16px;
+}
+
+.forgotPassword {
+  margin-left: auto;
+  color: blue;
+  font-size: 16px;
+  background-color: transparent;
+  border: none;
+  padding: 0;
+  cursor: pointer;
+}
+
+.button {
+  background-color: red;
+  padding: 10px;
+  border-radius: 5px;
+  margin-top: 20px;
+  color: white;
+  font-size: 16px;
+  border: none;
+  cursor: pointer;
+}
+
+.buttonText {
+  text-align: center;
+}
+
+@media (min-width: 768px) {
+  .container {
+    width: 50%;
+    margin: 0 auto;
+  }
+
+  .welcomeText {
+    font-size: 32px;
+  }
+
+  .label {
+    font-size: 20px;
+  }
+
+  .input {
+    height: 50px;
+    font-size: 20px;
+  }
+
+  .checkboxText {
+    font-size: 20px;
+  }
+
+  .checkboxLabel {
+    font-size: 20px;
+  }
+
+  .forgotPassword {
+    font-size: 20px;
+  }
+
+  .button {
+    font-size: 20px;
+  }
+}

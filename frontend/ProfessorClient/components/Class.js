@@ -1,5 +1,5 @@
 import React from "react";
-import { View, Text, TouchableOpacity, StyleSheet } from "react-native";
+import { View, Text, TouchableOpacity, StyleSheet, Alert } from "react-native";
 import colors from "../styles/colors";
 import { useNavigation } from "@react-navigation/native";
 
@@ -7,11 +7,56 @@ const Class = (props) => {
   const navigation = useNavigation();
 
   function handleToSettings() {
-    navigation.navigate("ClassSettings");
+    navigation.navigate("ClassSettings", {
+      classId: props.id,
+      title: props.title,
+    });
+  }
+
+  async function handleSessionCreation() {
+    try {
+      const response = await fetch(
+        `http://localhost:8081/classes/${props.id}/sessions`,
+        {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+        }
+      );
+      const data = await response.json();
+      if (response.ok) {
+        navigation.navigate("DeviceView", {
+          sessionId: data.id,
+          title: props.title,
+        });
+      } else {
+        throw new Error("Unable to create session.");
+      }
+    } catch (error) {
+      Alert.alert(
+        "Session Start Failed",
+        "We were unable to start a session for you. Please try again later.",
+        [{ text: "OK" }]
+      );
+    }
   }
 
   function handleToDeviceView() {
-    navigation.navigate("DeviceView");
+    Alert.alert(
+      "Session Confirmation",
+      "Are you sure you want to start a class session?",
+      [
+        {
+          text: "Cancel",
+          style: "cancel",
+        },
+        {
+          text: "Yes",
+          onPress: handleSessionCreation,
+        },
+      ]
+    );
   }
 
   return (

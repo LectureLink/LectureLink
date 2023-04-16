@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useContext, useState } from "react";
 import {
   StyleSheet,
   View,
@@ -9,16 +9,46 @@ import {
   Alert,
 } from "react-native";
 import { useNavigation } from "@react-navigation/native";
+import UserContext from "../userContext.js";
 import colors from "../styles/colors.js";
 
-const LoginScreen = () => {
+const Login = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [rememberMe, setRememberMe] = useState(false);
   const navigation = useNavigation();
 
-  const handleLogin = () => {
-    navigation.navigate("UserClasses");
+  const { setUserId } = useContext(UserContext);
+
+  const handleLogin = async () => {
+    try {
+      const response = await fetch("http://localhost:8081/login", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          email: email,
+          password: password,
+          role: "professor",
+        }),
+      });
+      const data = await response.json();
+      if (response.ok) {
+        setUserId(data.professor.userId);
+        navigation.navigate("UserClasses");
+      } else {
+        Alert.alert(
+          "Email or Password Incorrect",
+          "We did not find a professor account under that email and password. Please try again.",
+          [{ text: "OK" }]
+        );
+        setEmail("");
+        setPassword("");
+      }
+    } catch (error) {
+      console.error(error);
+    }
   };
 
   const handleForgotPassword = () => {
@@ -175,4 +205,4 @@ const styles = StyleSheet.create({
   },
 });
 
-export default LoginScreen;
+export default Login;

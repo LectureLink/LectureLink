@@ -1,8 +1,8 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import { View, Text, StyleSheet } from "react-native";
 import colors from "../styles/colors";
 
-function NumberBlock(props) {
+function ScoreDisplay(props) {
   let color = colors.ridRed;
   if (props.score >= 50) {
     color = colors.okYellow;
@@ -11,9 +11,21 @@ function NumberBlock(props) {
     color = colors.goodGreen;
   }
 
+  const [scoreText, setScoreText] = useState("");
+
+  useEffect(() => {
+    if (props.score == -1) {
+      setScoreText("Response rate too low.");
+    } else if (props.score === null) {
+      setScoreText("Request data");
+    } else {
+      setScoreText(props.score + "%");
+    }
+  }, [props.score]);
+
   return (
     <View style={[styles.container, { backgroundColor: color }]}>
-      <Text style={styles.numberText}>{props.score}%</Text>
+      <Text style={styles.numberText}>{scoreText}</Text>
     </View>
   );
 }
@@ -33,4 +45,4 @@ const styles = StyleSheet.create({
   },
 });
 
-export default NumberBlock;
+export default ScoreDisplay;

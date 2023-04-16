@@ -4,6 +4,8 @@ import {
   addEngagementData,
   addSession,
   addStudentToClass,
+  getClassById,
+  getClassesTaughtByProfessor,
 } from "../functions/database";
 
 /**
@@ -86,5 +88,40 @@ export const addSessionRouteHandler = async (req: Request, res: Response) => {
   } catch (error) {
     console.error(error);
     res.status(500).json({ message: "Unable to add session." });
+  }
+};
+
+/**
+ * Handles functionality for getting classes that a professor teaches.
+ *
+ * @param req request to server
+ * @param res response from server
+ */
+export const getClassesTaughtByProfessorRouteHandler = async (
+  req: Request,
+  res: Response
+) => {
+  const { professorId } = req.params;
+  try {
+    const classes = await getClassesTaughtByProfessor(Number(professorId));
+    res.status(200).json({ classes });
+  } catch (err) {
+    res.status(500).json({ message: "Unable to retrieve classes." });
+  }
+};
+
+/**
+ * Handles functionality for getting a class of a given class id.
+ *
+ * @param req request to server
+ * @param res response from server
+ */
+export const getClassRouteHandler = async (req: Request, res: Response) => {
+  const { classId } = req.params;
+  try {
+    const classObj = await getClassById(Number(classId));
+    res.status(200).json({ classObj });
+  } catch (err) {
+    res.status(500).json({ message: "Unable to retrieve class." });
   }
 };

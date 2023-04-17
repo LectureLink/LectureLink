@@ -2,6 +2,14 @@ import express from "express";
 import cors from "cors";
 const PORT = 8081;
 const app = express();
+import { Request, Response } from "express";
+
+// Socket.io imports
+import { initSockets } from "./socket";
+import http from "http";
+
+const server = http.createServer(app);
+const { createRoom, deleteRoom, pushNotify } = initSockets(server);
 
 // Route-handling imports
 import {
@@ -16,16 +24,16 @@ import {
   addSessionRouteHandler,
   addStudentToClassRouteHandler,
   getClassRouteHandler,
+  getClassesByStudentIdRouteHandler,
   getClassesTaughtByProfessorRouteHandler,
 } from "./routes/database";
 import { getComprehensionLevelRouteHandler } from "./routes/comprehensionScore";
 import { updateClassSettingsRouteHandler } from "./routes/updateSettings";
 import { getAverageEngagementLevelRouteHandler } from "./routes/averageEngagement";
 
-// Using cors with access to client at PORT 3000
 app.use(
   cors({
-    origin: ["http://localhost:3000", "exp://10.110.14.70:19000"],
+    origin: ["http://localhost:3001", "exp://10.110.14.70:19000"],
   })
 );
 
@@ -89,6 +97,9 @@ app.get(
 // Gets a class of a given class id.
 app.get("/classes/:classId", getClassRouteHandler);
 
+// Gets classes that a student is enrolled in
+app.get("/student/:studentId/classes", getClassesByStudentIdRouteHandler);
+
 /**
  * /////////////////////////////////////////////////////////////////////
  *
@@ -116,9 +127,39 @@ app.get(
 /**
  * /////////////////////////////////////////////////////////////////////
  *
+ * Socket-related routes
+ *
+ * //////////////////////////////////////////////////////////////////////
+ */
+
+app.post("/rooms/create/:sessionId", (req: Request, res: Response) => {
+  const sessionId = req.params.sessionId;
+  const roomCode = createRoom(sessionId);
+  res.json({ roomCode });
+});
+
+app.delete("/rooms/:sessionId", (req: Request, res: Response) => {
+  const sessionId = req.params.sessionId;
+  const roomDeleted = deleteRoom(sessionId);
+  if (roomDeleted) {
+    res.status(200).json({ message: "Room was sucessfully deleted" });
+  } else {
+    res.status(404).json({ message: "This room does not exist." });
+  }
+});
+
+app.post("/rooms/:roomCode/notify", (req: Request, res: Response) => {
+  const roomCode = req.params.roomCode;
+  pushNotify(roomCode);
+  res.status(200).json({ message: "Push notification sent to students." });
+});
+
+/**
+ * /////////////////////////////////////////////////////////////////////
+ *
  * Running server on port...
  *
  * //////////////////////////////////////////////////////////////////////
  */
 
-app.listen(PORT, () => console.log(`Server started on port ${PORT}`));
+server.listen(PORT, () => console.log(`Socket server started on port ${PORT}`));

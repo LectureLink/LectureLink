@@ -1,10 +1,10 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { View, Text, TouchableOpacity, StyleSheet, Alert } from "react-native";
 import ScoreDisplay from "../components/ScoreDisplay";
 import colors from "../styles/colors";
 
 function DeviceView({ route }) {
-  const { sessionId, title } = route.params;
+  const { sessionId, title, roomCode } = route.params;
   const [score, setScore] = useState(null);
   const DEFAULT_WAIT_TIME = 30;
 
@@ -19,6 +19,23 @@ function DeviceView({ route }) {
   }
 
   async function handleRequestEngagement() {
+    try {
+      const response = await fetch(
+        `http://localhost:8081/rooms/${roomCode}/notify`,
+        {
+          method: "POST",
+        }
+      );
+      if (!response.ok) {
+        throw new Error("Failed to send push notification.");
+      }
+    } catch (error) {
+      Alert.alert(
+        "Unable to send push notification",
+        "We were not able to send a push notification to your class session. Please try again later.",
+        [{ text: "OK" }]
+      );
+    }
     let currScore = DEFAULT_WAIT_TIME;
     const timer = setInterval(() => {
       setScore(currScore);
@@ -50,9 +67,22 @@ function DeviceView({ route }) {
     }
   }
 
+  useEffect(() => {
+    return async () => {
+      try {
+        await fetch(`http://localhost:8081/rooms/${roomCode}`, {
+          method: "DELETE",
+        });
+      } catch (error) {
+        console.error("Failed to close the room", error);
+      }
+    };
+  }, [roomCode]);
+
   return (
     <View style={styles.container}>
       <Text style={styles.title}>{title}</Text>
+      <Text style={styles.title}>Room Code: {roomCode}</Text>
       <ScoreDisplay score={score} />
       <View style={styles.buttonContainer}>
         <TouchableOpacity style={styles.button} onPress={handlePrev}>

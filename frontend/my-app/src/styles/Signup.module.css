@@ -1,0 +1,52 @@
+.container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  min-height: 100vh;
+  text-align: center;
+  background-color: var(--secondaryBlue);
+}
+
+.logo {
+  min-width: 300px;
+}
+
+.title {
+  margin-bottom: 1rem;
+}
+
+.inputContainer {
+  width: 20%;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+}
+
+label {
+  display: inline-flex;
+  align-items: center;
+  margin-top: 10px;
+  width: 100%;
+}
+
+input {
+  display: block;
+  margin: 0.5rem auto;
+  padding: 0.5rem;
+  border: 1px solid #ccc;
+  border-radius: 3px;
+  width: 100%;
+}
+
+.signIn {
+  display: block;
+  margin: 1rem auto;
+  padding: 0.5rem;
+  width: 20%;
+  border: none;
+  border-radius: 3px;
+  background-color: var(--primaryBlue);
+  color: var(--white);
+  font-weight: bold;
+}

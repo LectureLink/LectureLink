@@ -1,0 +1,71 @@
+.container {
+  background-color: var(--white);
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 1rem;
+  border-radius: 3px;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+}
+
+.title {
+  color: #000;
+  font-weight: bold;
+}
+
+.openButton {
+  background-color: var(--primaryBlue);
+  color: var(--white);
+  border: none;
+  border-radius: 3px;
+  padding: 0.5rem;
+  cursor: pointer;
+}
+
+.modalOverlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgb(0, 0, 0, 0.6);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.modal {
+  background-color: var(--white);
+  padding: 2rem;
+  border-radius: 5px;
+  width: 90%;
+  max-width: 400px;
+  text-align: center;
+}
+
+.modal label {
+  display: inline-flex;
+  align-items: center;
+  margin-top: 10px;
+  width: 100%;
+}
+
+.modal input {
+  display: block;
+  margin: 0.5rem auto;
+  padding: 0.5rem;
+  border: 1px solid #ccc;
+  border-radius: 3px;
+  width: 100%;
+}
+
+.modal button {
+  background-color: var(--primaryBlue);
+  border: none;
+  border-radius: 3px;
+  color: var(--white);
+  font-weight: bold;
+  padding: 0.5rem;
+  cursor: pointer;
+  margin: 0.5rem;
+}

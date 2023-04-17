@@ -19,7 +19,7 @@ function ScoreDisplay(props) {
     } else if (props.score === null) {
       setScoreText("Request data");
     } else {
-      setScoreText(props.score + "%");
+      setScoreText(props.score);
     }
   }, [props.score]);
 

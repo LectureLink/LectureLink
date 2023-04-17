@@ -193,3 +193,30 @@ export async function getClassById(classId: number) {
   });
   return classInfo;
 }
+
+/**
+ * Gets the classes that a given student is enrolled in.
+ *
+ * @param studentId number of the student's id
+ * @returns promise of Class[]
+ */
+export async function getClassesByStudentId(
+  studentId: number
+): Promise<Class[]> {
+  console.log("student");
+  const student = await prisma.student.findUnique({
+    where: { userId: studentId },
+    select: { classes: true },
+  });
+
+  console.log(student);
+  if (!student) {
+    throw new Error(`Unable to find student of id ${studentId}`);
+  }
+
+  const classes = await prisma.class.findMany({
+    where: { studentsAttending: { some: { userId: studentId } } },
+  });
+
+  return classes;
+}

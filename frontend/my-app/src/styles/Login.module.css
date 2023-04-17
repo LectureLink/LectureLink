@@ -1,0 +1,90 @@
+* {
+  box-sizing: border-box;
+}
+
+.container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  min-height: 100vh;
+  text-align: center;
+  background-color: var(--secondaryBlue);
+}
+
+.logo {
+  min-width: 300px;
+}
+
+.title {
+  margin-bottom: 1rem;
+}
+
+.signupPrompt {
+  display: flex;
+  justify-content: center;
+  margin-bottom: 1rem;
+}
+
+.signupLink {
+  color: var(--primaryBlue);
+  margin-left: 0.5rem;
+  text-decoration: none;
+}
+
+.inputContainer {
+  width: 20%;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+}
+
+label {
+  display: inline-flex;
+  align-items: center;
+  margin-top: 10px;
+  width: 100%;
+}
+
+input {
+  display: block;
+  margin: 0.5rem auto;
+  padding: 0.5rem;
+  border: 1px solid #ccc;
+  border-radius: 3px;
+  width: 100%;
+}
+
+.rememberMeForgot {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  width: 20%;
+  margin: 0.5rem auto;
+}
+
+.rememberMe {
+  display: flex;
+  align-items: center;
+}
+
+.rememberMe span {
+  white-space: nowrap;
+}
+
+.forgotPassword {
+  color: var(--primaryBlue);
+  text-decoration: none;
+}
+
+.signIn {
+  display: block;
+  margin: 1rem auto;
+  padding: 0.5rem;
+  width: 20%;
+  border: none;
+  border-radius: 3px;
+  background-color: var(--primaryBlue);
+  color: var(--white);
+  font-weight: bold;
+}

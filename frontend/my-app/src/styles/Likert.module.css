@@ -1,0 +1,51 @@
+.likert {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.likertQuestion {
+  font-size: 1.2rem;
+  margin-bottom: 1rem;
+}
+
+.likertScale {
+  display: flex;
+  justify-content: space-between;
+  width: 100%;
+}
+
+.likertResponse {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  cursor: pointer;
+  color: var(--white);
+}
+
+.likertResponse input {
+  display: none;
+}
+
+.likertResponseText {
+  text-align: center;
+}
+
+.likertEmoji {
+  font-size: 5rem;
+  margin-bottom: 1rem;
+}
+
+.selected {
+  border: 3px solid var(--white);
+}
+
+.submitButton {
+  background-color: var(--primaryBlue);
+  color: var(--white);
+  border: none;
+  border-radius: 3px;
+  padding: 0.5rem;
+  cursor: pointer;
+  margin-top: 30px;
+}

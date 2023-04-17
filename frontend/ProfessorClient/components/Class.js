@@ -26,9 +26,11 @@ const Class = (props) => {
       );
       const data = await response.json();
       if (response.ok) {
+        const roomCode = await createRoom(data.id);
         navigation.navigate("DeviceView", {
           sessionId: data.id,
           title: props.title,
+          roomCode,
         });
       } else {
         throw new Error("Unable to create session.");
@@ -37,6 +39,32 @@ const Class = (props) => {
       Alert.alert(
         "Session Start Failed",
         "We were unable to start a session for you. Please try again later.",
+        [{ text: "OK" }]
+      );
+    }
+  }
+
+  async function createRoom(sessionId) {
+    try {
+      const response = await fetch(
+        `http://localhost:8081/rooms/create/${sessionId}`,
+        {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+        }
+      );
+      const data = await response.json();
+      if (response.ok) {
+        return data.roomCode;
+      } else {
+        throw new Error("Unable to create room.");
+      }
+    } catch (error) {
+      Alert.alert(
+        "Room Creation Failed",
+        "We were unable to create a room for you. Please try again later.",
         [{ text: "OK" }]
       );
     }

@@ -1,11 +1,13 @@
 import React, { useState } from "react";
-// import "../styles/Class.css";
 import logo from "../assets/logo2.png";
-import { useNavigate } from "react-router-dom";
+import styles from "../styles/Class.module.css";
+import { useLocation, useNavigate } from "react-router-dom";
 
 const Class = (props) => {
-  const navigate = useNavigate();
   const [modalVisible, setModalVisible] = useState(false);
+  const [classCode, setClassCode] = useState();
+  const navigate = useNavigate();
+  const location = useLocation();
 
   function handleOpen() {
     setModalVisible(true);
@@ -16,33 +18,42 @@ const Class = (props) => {
   }
 
   function handleSave() {
-    setModalVisible(false);
-    navigate("/prompt");
+    const searchParams = new URLSearchParams(location.search);
+
+    if (classCode) {
+      searchParams.set("classCode", classCode);
+      navigate("/prompt?" + searchParams.toString());
+    } else {
+      alert("Please enter a room code.");
+    }
   }
 
   return (
-    <div className="container">
-      <div className="title">{props.title}</div>
-      <button className="openButton" onClick={handleOpen}>
+    <div className={styles.container}>
+      <div className={styles.title}>{props.title}</div>
+      <button className={styles.openButton} onClick={handleOpen}>
         Open
       </button>
 
       {modalVisible && (
-        <div className="modal">
-          <img className="logo" src={logo} alt="Logo" />
-          <div className="modalText">Class Code</div>
-          <input
-            className="textInput"
-            type="text"
-            placeholder="Enter Class Code"
-          />
-          <div className="buttonContainer">
-            <button className="cancelButton" onClick={handleCancel}>
-              Cancel
-            </button>
-            <button className="saveButton" onClick={handleSave}>
-              Save
-            </button>
+        <div className={styles.modalOverlay} onClick={handleCancel}>
+          <div className={styles.modal} onClick={(e) => e.stopPropagation()}>
+            <img src={logo} alt="Logo" />
+            <div>Class Code</div>
+            <input
+              type="text"
+              placeholder="Enter Class Code"
+              value={classCode}
+              onChange={(e) => setClassCode(e.target.value)}
+            />
+            <div>
+              <button className={styles.modalButton} onClick={handleCancel}>
+                Cancel
+              </button>
+              <button className={styles.modalButton} onClick={handleSave}>
+                Enter Session
+              </button>
+            </div>
           </div>
         </div>
       )}

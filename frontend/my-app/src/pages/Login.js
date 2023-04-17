@@ -1,13 +1,12 @@
 import React, { useContext, useState } from "react";
 import UserContext from "../userContext.js";
-import "../styles/Login.css";
-import { useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
+import styles from "../styles/Login.module.css";
 import logo from "../assets/logo.png";
 
 const Login = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-  const [rememberMe, setRememberMe] = useState(false);
 
   const { setUserId } = useContext(UserContext);
   const navigate = useNavigate();
@@ -53,58 +52,50 @@ const Login = () => {
   };
 
   return (
-    <div className="container">
-      <img className="logo" src={logo} alt="Logo" />
-      <div className="welcomeContainer">
-        <h1 className="welcomeText">Log into your account</h1>
-        <div className="signupContainer">
-          <span className="signupText">Don't have an account? </span>
-          <button className="signupLink" onClick={handleSignup}>
+    <div className={styles.container}>
+      <img src={logo} alt="Logo" className={styles.logo} />
+      <div>
+        <h1 className={styles.title}>Log into your student account</h1>
+        <div className={styles.signupPrompt}>
+          <span>Don't have an account? </span>
+          <Link to="/signup" className={styles.signupLink}>
             Signup
-          </button>
+          </Link>
         </div>
       </div>
 
-      <label htmlFor="email" className="label">
-        Email
-      </label>
-      <input
-        type="text"
-        id="email"
-        className="input"
-        value={email}
-        onChange={(e) => setEmail(e.target.value)}
-        placeholder="Enter your email"
-      />
+      <div className={styles.inputContainer}>
+        <label htmlFor="email">Student Email</label>
+        <input
+          type="text"
+          id="email"
+          value={email}
+          onChange={(e) => setEmail(e.target.value)}
+          placeholder="Enter your email"
+        />
+      </div>
 
-      <label htmlFor="password" className="label">
-        Password
-      </label>
-      <input
-        type="password"
-        id="password"
-        className="input"
-        value={password}
-        onChange={(e) => setPassword(e.target.value)}
-        placeholder="Enter your password"
-      />
-
-      <div className="optionsContainer">
-        <div className="checkboxContainer">
-          <button
-            className="checkbox"
-            onClick={() => setRememberMe(!rememberMe)}
-          >
-            {rememberMe && <span className="checkboxText">✓</span>}
-          </button>
-          <span className="checkboxLabel">Remember me</span>
+      <div className={styles.inputContainer}>
+        <label htmlFor="password">Password</label>
+        <input
+          type="password"
+          id="password"
+          value={password}
+          onChange={(e) => setPassword(e.target.value)}
+          placeholder="Enter your password"
+        />
+      </div>
+      <div className={styles.rememberMeForgot}>
+        <div className={styles.rememberMe}>
+          <input type="checkbox" />
+          <span>Remember me</span>
         </div>
-        <button className="forgotPassword" onClick={handleForgotPassword}>
+        <span className={styles.forgotPassword} onClick={handleForgotPassword}>
           Forgot password?
-        </button>
+        </span>
       </div>
 
-      <button onClick={handleLogin} className="button">
+      <button className={styles.signIn} onClick={handleLogin}>
         Sign In
       </button>
     </div>

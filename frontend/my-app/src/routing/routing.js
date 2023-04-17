@@ -14,7 +14,7 @@ function AppRoutes() {
         <Route exact path="/" element={<Login />} />
         <Route path="/signup" element={<Signup />} />
         <Route path="/classes" element={<StudentClasses />} />
-        {/* <Route path="/prompt" element={<Prompt />} /> */}
+        <Route path="/prompt" element={<Prompt />} />
         {/* <Route path="/*" element={<Error />} /> */}
       </Routes>
     </Router>

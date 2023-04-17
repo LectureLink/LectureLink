@@ -73,6 +73,7 @@ function ClassSettings({ route }) {
     <View style={styles.container}>
       <Image style={styles.image} source={require("../assets/logo2.png")} />
       <Text style={styles.title}>{title} Settings</Text>
+      <Text style={styles.title}>CLASS ID: {classId}</Text>
       <View style={styles.fieldContainer}>
         <View style={styles.field}>
           <Text style={styles.fieldLabel}>Cooldown Time</Text>

@@ -1,8 +1,8 @@
 import React, { useContext, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import UserContext from "../userContext.js";
-import "../styles/Signup.css";
 import logo from "../assets/logo.png";
+import styles from "../styles/Signup.module.css";
 
 const Signup = () => {
   const [email, setEmail] = useState("");
@@ -36,38 +36,34 @@ const Signup = () => {
   };
 
   return (
-    <div className="container">
-      <img className="logo" src={logo} alt="Logo" />
+    <div className={styles.container}>
+      <img className={styles.logo} src={logo} alt="Logo" />
 
-      <div className="welcomeContainer">
-        <h1 className="welcomeText">Sign up for your new student account!</h1>
+      <div className={styles.title}>
+        <h1>Sign up for your new student account!</h1>
       </div>
 
-      <label htmlFor="email" className="label">
-        Email
-      </label>
-      <input
-        id="email"
-        className="input"
-        type="email"
-        onChange={(e) => setEmail(e.target.value)}
-        value={email}
-        placeholder="Enter your email"
-      />
+      <div className={styles.inputContainer}>
+        <label htmlFor="email">Student Email</label>
+        <input
+          id="email"
+          type="email"
+          onChange={(e) => setEmail(e.target.value)}
+          value={email}
+          placeholder="Enter your email"
+        />
 
-      <label htmlFor="password" className="label">
-        Password
-      </label>
-      <input
-        id="password"
-        className="input"
-        type="password"
-        onChange={(e) => setPassword(e.target.value)}
-        value={password}
-        placeholder="Enter your password"
-      />
+        <label htmlFor="password">Password</label>
+        <input
+          id="password"
+          type="password"
+          onChange={(e) => setPassword(e.target.value)}
+          value={password}
+          placeholder="Enter your password"
+        />
+      </div>
 
-      <button onClick={handleSignup} className="button">
+      <button className={styles.signIn} onClick={handleSignup}>
         Sign Up
       </button>
     </div>

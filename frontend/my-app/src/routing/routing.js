@@ -1,4 +1,4 @@
-import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
+import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 
 // Page imports
 import Login from "../pages/Login";
@@ -7,18 +7,18 @@ import StudentClasses from "../pages/StudentClasses";
 import Prompt from "../pages/Prompt";
 import Error from "../pages/Error";
 
-function Routes() {
+function AppRoutes() {
   return (
     <Router>
-      <Switch>
-        <Route exact path="/" component={<Login />} />
-        <Route path="/signup" component={<Signup />} />
-        <Route path="/classes" component={<StudentClasses />} />
-        <Route path="/prompt" component={<Prompt />} />
-        <Route path="/*" component={<Error />} />
-      </Switch>
+      <Routes>
+        <Route exact path="/" element={<Login />} />
+        <Route path="/signup" element={<Signup />} />
+        <Route path="/classes" element={<StudentClasses />} />
+        {/* <Route path="/prompt" element={<Prompt />} /> */}
+        {/* <Route path="/*" element={<Error />} /> */}
+      </Routes>
     </Router>
   );
 }
 
-export default Routes;
+export default AppRoutes;

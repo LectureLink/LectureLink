@@ -5,6 +5,7 @@ import {
   addSession,
   addStudentToClass,
   getClassById,
+  getClassesByStudentId,
   getClassesTaughtByProfessor,
 } from "../functions/database";
 
@@ -15,7 +16,6 @@ import {
  * @param res response from server
  */
 export const addClassRouteHandler = async (req: Request, res: Response) => {
-  console.log("HI");
   try {
     const { name, professorUserId } = req.body;
     const profId = parseInt(professorUserId);
@@ -123,5 +123,25 @@ export const getClassRouteHandler = async (req: Request, res: Response) => {
     res.status(200).json({ classObj });
   } catch (err) {
     res.status(500).json({ message: "Unable to retrieve class." });
+  }
+};
+
+/**
+ * Handles functionality for getting all of the classes of a student.
+ *
+ * @param req request to server
+ * @param res response from server
+ */
+export const getClassesByStudentIdRouteHandler = async (
+  req: Request,
+  res: Response
+) => {
+  const studentId = parseInt(req.params.studentId);
+  try {
+    const classes = await getClassesByStudentId(studentId);
+    res.json(classes);
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({ message: "Unable to retrieve classes" });
   }
 };

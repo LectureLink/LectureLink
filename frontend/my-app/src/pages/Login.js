@@ -1,6 +1,8 @@
 import React, { useContext, useState } from "react";
 import UserContext from "../userContext.js";
 import "../styles/Login.css";
+import { useNavigate } from "react-router-dom";
+import logo from "../assets/logo.png";
 
 const Login = () => {
   const [email, setEmail] = useState("");
@@ -8,6 +10,7 @@ const Login = () => {
   const [rememberMe, setRememberMe] = useState(false);
 
   const { setUserId } = useContext(UserContext);
+  const navigate = useNavigate();
 
   const handleLogin = async () => {
     try {
@@ -24,10 +27,9 @@ const Login = () => {
       });
       const data = await response.json();
       if (response.ok) {
-        setUserId(data.professor.userId);
-        window.location.href = "/UserClasses";
-        setEmail("");
-        setPassword("");
+        console.log(data.id);
+        setUserId(data.id);
+        navigate("/classes");
       } else {
         alert(
           "Email or Password Incorrect\nWe did not find a student account under that email and password. Please try again."
@@ -47,17 +49,12 @@ const Login = () => {
   };
 
   const handleSignup = () => {
-    window.location.href = "/Signup";
+    navigate("/signup");
   };
 
   return (
     <div className="container">
-      <img
-        className="logo"
-        src={require("../assets/logo.png").default}
-        alt="Logo"
-      />
-
+      <img className="logo" src={logo} alt="Logo" />
       <div className="welcomeContainer">
         <h1 className="welcomeText">Log into your account</h1>
         <div className="signupContainer">

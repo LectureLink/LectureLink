@@ -62,6 +62,7 @@ const Class = (props) => {
   return (
     <View style={styles.container}>
       <Text style={styles.title}>{props.title}</Text>
+      <Text style={styles.title}>CLASS ID: {props.id}</Text>
       <View style={styles.buttonContainer}>
         <TouchableOpacity
           style={styles.settingsButton}

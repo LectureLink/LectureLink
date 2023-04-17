@@ -16,6 +16,7 @@ import {
   addSessionRouteHandler,
   addStudentToClassRouteHandler,
   getClassRouteHandler,
+  getClassesByStudentIdRouteHandler,
   getClassesTaughtByProfessorRouteHandler,
 } from "./routes/database";
 import { getComprehensionLevelRouteHandler } from "./routes/comprehensionScore";
@@ -25,7 +26,7 @@ import { getAverageEngagementLevelRouteHandler } from "./routes/averageEngagemen
 // Using cors with access to client at PORT 3000
 app.use(
   cors({
-    origin: ["http://localhost:3000", "exp://10.110.14.70:19000"],
+    origin: ["http://localhost:3001", "exp://10.110.14.70:19000"],
   })
 );
 
@@ -88,6 +89,9 @@ app.get(
 
 // Gets a class of a given class id.
 app.get("/classes/:classId", getClassRouteHandler);
+
+// Gets classes that a student is enrolled in
+app.get("/student/:studentId/classes", getClassesByStudentIdRouteHandler);
 
 /**
  * /////////////////////////////////////////////////////////////////////

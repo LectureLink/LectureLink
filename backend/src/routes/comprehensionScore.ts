@@ -12,7 +12,6 @@ export const getComprehensionLevelRouteHandler = async (
   res: Response
 ) => {
   try {
-    console.log("HERE1");
     const timespan = parseInt(req.params.timespan);
     const sessionId = parseInt(req.params.sessionId);
     const classSize = parseInt(req.params.classSize);
@@ -23,15 +22,12 @@ export const getComprehensionLevelRouteHandler = async (
       );
     }
 
-    console.log("HERE");
-
     const compLevel = await getComprehensionLevel(
       timespan,
       sessionId,
       classSize
     );
 
-    console.log(compLevel);
     res.status(200).json({ comprehensionLevel: compLevel });
   } catch (err: any) {
     res.status(400).json({ error: err.message });

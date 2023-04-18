@@ -6,6 +6,7 @@ import colors from "../styles/colors";
 function DeviceView({ route }) {
   const { sessionId, title, roomCode } = route.params;
   const [score, setScore] = useState(null);
+  const [isCountdown, setIsCountdown] = useState(false);
   const DEFAULT_WAIT_TIME = 30;
 
   // A feature to be added in future releases
@@ -36,6 +37,7 @@ function DeviceView({ route }) {
         [{ text: "OK" }]
       );
     }
+    setIsCountdown(true);
     let currScore = DEFAULT_WAIT_TIME;
     const timer = setInterval(() => {
       setScore(currScore);
@@ -43,6 +45,7 @@ function DeviceView({ route }) {
       if (currScore < 0) {
         clearInterval(timer);
         fetchData();
+        setIsCountdown(false);
       }
     }, 1000);
   }
@@ -82,8 +85,8 @@ function DeviceView({ route }) {
   return (
     <View style={styles.container}>
       <Text style={styles.title}>{title}</Text>
-      <Text style={styles.title}>Room Code: {roomCode}</Text>
-      <ScoreDisplay score={score} />
+      <Text style={styles.roomId}>Room Code: {roomCode}</Text>
+      <ScoreDisplay score={score} isCountdown={isCountdown} />
       <View style={styles.buttonContainer}>
         <TouchableOpacity style={styles.button} onPress={handlePrev}>
           <Text style={styles.buttonText}>Prev</Text>
@@ -96,7 +99,7 @@ function DeviceView({ route }) {
         style={styles.requestButton}
         onPress={handleRequestEngagement}
       >
-        <Text style={styles.buttonText}>Request Engagement</Text>
+        <Text style={styles.requestButtonText}>Request Engagement</Text>
       </TouchableOpacity>
     </View>
   );
@@ -114,6 +117,11 @@ const styles = StyleSheet.create({
     fontWeight: "bold",
     marginVertical: 10,
   },
+  roomId: {
+    fontSize: 14,
+    textAlign: "center",
+    marginBottom: 30,
+  },
   buttonContainer: {
     flexDirection: "row",
     justifyContent: "space-between",
@@ -123,9 +131,10 @@ const styles = StyleSheet.create({
   button: {
     backgroundColor: colors.gray,
     paddingVertical: 10,
-    paddingHorizontal: 20,
+    paddingHorizontal: 10,
     borderRadius: 5,
     flex: 1,
+    maxWidth: 120,
   },
   requestButton: {
     backgroundColor: colors.primaryBlue,
@@ -134,10 +143,17 @@ const styles = StyleSheet.create({
     borderRadius: 5,
     width: "80%",
   },
-  buttonText: {
+  requestButtonText: {
     color: colors.white,
     fontWeight: "bold",
     fontSize: 12,
+    textAlign: "center",
+  },
+  buttonText: {
+    color: colors.neutral,
+    fontWeight: "bold",
+    fontSize: 12,
+    textAlign: "center",
   },
 });
 

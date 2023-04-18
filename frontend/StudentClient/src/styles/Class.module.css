@@ -1,24 +1,29 @@
+* {
+  box-sizing: border-box;
+}
+
 .container {
   background-color: var(--white);
   display: flex;
   justify-content: space-between;
   align-items: center;
-  padding: 1rem;
-  border-radius: 3px;
-  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+  padding: 1.5rem 4rem;
+  border-bottom: solid #ccc;
 }
 
 .title {
   color: #000;
   font-weight: bold;
+  font-size: 20px;
 }
 
 .openButton {
   background-color: var(--primaryBlue);
   color: var(--white);
+  font-weight: bold;
   border: none;
   border-radius: 3px;
-  padding: 0.5rem;
+  padding: 0.5rem 2rem;
   cursor: pointer;
 }
 
@@ -37,17 +42,15 @@
 .modal {
   background-color: var(--white);
   padding: 2rem;
+  padding-bottom: 0.5rem;
   border-radius: 5px;
   width: 90%;
   max-width: 400px;
   text-align: center;
 }
 
-.modal label {
-  display: inline-flex;
-  align-items: center;
-  margin-top: 10px;
-  width: 100%;
+.modalLogo {
+  max-width: 100px;
 }
 
 .modal input {
@@ -59,13 +62,33 @@
   width: 100%;
 }
 
-.modal button {
+.modalButtonContainer {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  margin-top: 20px;
+}
+
+.modalCancel {
+  background-color: var(--gray);
+  border: none;
+  border-radius: 3px;
+  color: var(--white);
+  font-weight: bold;
+  padding: 0.5rem 2rem;
+  cursor: pointer;
+  margin: 0.5rem;
+  width: 100%;
+}
+
+.modalSave {
   background-color: var(--primaryBlue);
   border: none;
   border-radius: 3px;
   color: var(--white);
   font-weight: bold;
-  padding: 0.5rem;
+  padding: 0.5rem 1rem;
   cursor: pointer;
   margin: 0.5rem;
+  width: 100%;
 }

@@ -17,9 +17,9 @@ function Navigator() {
       <Stack.Navigator initialRouteName="Login">
         <Stack.Screen name="Login" component={Login} />
         <Stack.Screen name="Signup" component={Signup} />
-        <Stack.Screen name="UserClasses" component={UserClasses} />
-        <Stack.Screen name="ClassSettings" component={ClassSettings} />
-        <Stack.Screen name="DeviceView" component={DeviceView} />
+        <Stack.Screen name="Classes" component={UserClasses} />
+        <Stack.Screen name="Class Settings" component={ClassSettings} />
+        <Stack.Screen name="Device View" component={DeviceView} />
         <Stack.Screen name="UnauthorizationError" component={Error} />
       </Stack.Navigator>
     </NavigationContainer>

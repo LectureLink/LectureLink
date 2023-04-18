@@ -52,7 +52,7 @@ function ClassSettings({ route }) {
         }
       );
       if (response.ok) {
-        navigation.navigate("UserClasses");
+        navigation.navigate("Classes");
       } else {
         throw new Error("Unable to update settings.");
       }
@@ -66,14 +66,14 @@ function ClassSettings({ route }) {
   }
 
   function handleCancel() {
-    navigation.navigate("UserClasses");
+    navigation.navigate("Classes");
   }
 
   return (
     <View style={styles.container}>
       <Image style={styles.image} source={require("../assets/logo2.png")} />
       <Text style={styles.title}>{title} Settings</Text>
-      <Text style={styles.title}>CLASS ID: {classId}</Text>
+      <Text style={styles.classId}>CLASS ID: {classId}</Text>
       <View style={styles.fieldContainer}>
         <View style={styles.field}>
           <Text style={styles.fieldLabel}>Cooldown Time</Text>
@@ -89,7 +89,7 @@ function ClassSettings({ route }) {
           <Text style={styles.fieldLabel}>Passive Check-in</Text>
           <Switch
             style={styles.fieldSwitch}
-            trackColor={{ true: colors.primaryBlue }}
+            trackColor={{ true: colors.goodGreen }}
             value={isPassiveCheckIn}
             onValueChange={setIsPassiveCheckIn}
           />
@@ -116,7 +116,7 @@ const styles = StyleSheet.create({
     height: 61,
     resizeMode: "cover",
     alignSelf: "center",
-    marginTop: 40,
+    marginTop: 70,
   },
   title: {
     fontSize: 24,
@@ -125,6 +125,10 @@ const styles = StyleSheet.create({
     marginHorizontal: 20,
     textAlign: "center",
     marginTop: 20,
+  },
+  classId: {
+    fontSize: 14,
+    textAlign: "center",
   },
   fieldContainer: {
     marginTop: 40,

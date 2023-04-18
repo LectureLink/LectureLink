@@ -3,16 +3,23 @@ import styles from "../styles/Prompt.module.css";
 import Likert from "../components/Likert";
 import { io } from "socket.io-client";
 import UserContext from "../userContext";
-import { useLocation } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
 
 function Prompt() {
   const [score, setScore] = useState();
   const [isPrompting, setIsPrompting] = useState(false);
   const [socket, setSocket] = useState();
   const { userId } = useContext(UserContext);
+  const navigate = useNavigate();
   const location = useLocation();
   const searchParams = new URLSearchParams(location.search);
   const classCode = searchParams.get("classCode");
+
+  useEffect(() => {
+    if (!userId) {
+      navigate("/");
+    }
+  }, [userId]);
 
   useEffect(() => {
     if (socket) {
@@ -80,12 +87,12 @@ function Prompt() {
   }
 
   const likertOptions = {
-    question: "How was this part of the lecture?",
+    question: "How clear was this part of the lecture?",
     responses: [
       { value: 0, text: "0%", emoji: "😭", color: "--ridRed" },
-      { value: 25, text: "25%", emoji: "🤨", color: "--ridRed" },
+      { value: 25, text: "25%", emoji: "🤨", color: "--badOrange" },
       { value: 50, text: "50%", emoji: "😐", color: "--okYellow" },
-      { value: 75, text: "75%", emoji: "🙂", color: "--goodGreen" },
+      { value: 75, text: "75%", emoji: "🙂", color: "--generousGreen" },
       { value: 100, text: "100%", emoji: "😁", color: "--goodGreen" },
     ],
     onChange: (val) => {

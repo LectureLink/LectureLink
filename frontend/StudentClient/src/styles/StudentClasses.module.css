@@ -38,6 +38,20 @@
   margin-top: 0.5rem;
 }
 
+.signout {
+  border: none;
+  border-radius: 3px;
+  color: var(--white);
+  background-color: var(--ridRed);
+  font-weight: bold;
+  padding: 0.7rem 1.7rem;
+  cursor: pointer;
+  align-self: flex-end;
+  font-size: 15px;
+  margin-right: 50px;
+  margin-top: 0.5rem;
+}
+
 .modalOverlay {
   position: fixed;
   top: 0;

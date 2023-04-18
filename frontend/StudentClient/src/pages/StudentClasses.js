@@ -3,13 +3,21 @@ import Class from "../components/Class";
 import UserContext from "../userContext";
 import logo from "../assets/logo2.png";
 import styles from "../styles/StudentClasses.module.css";
+import { useNavigate } from "react-router-dom";
 
 function StudentClasses() {
   const [classes, setClasses] = useState(null);
   const [modalVisible, setModalVisible] = useState(false);
   const [classId, setClassId] = useState();
 
-  const { userId } = useContext(UserContext);
+  const { userId, setUserId } = useContext(UserContext);
+  const navigate = useNavigate();
+
+  useEffect(() => {
+    if (!userId) {
+      navigate("/");
+    }
+  }, [userId]);
 
   async function fetchData() {
     try {
@@ -24,7 +32,7 @@ function StudentClasses() {
       }
     } catch (error) {
       alert(
-        "Unable to retrieve classes. Sorry, we were unable to retrieve your classes."
+        "Sorry, we were unable to retrieve your classes. You may not be logged in. Please log in and try again."
       );
     }
   }
@@ -64,6 +72,11 @@ function StudentClasses() {
     setModalVisible(false);
   };
 
+  const handleSignout = () => {
+    setUserId(null);
+    navigate("/");
+  };
+
   return (
     <div className={styles.container}>
       <img src={logo} alt="logo" className={styles.logo} />
@@ -78,6 +91,9 @@ function StudentClasses() {
           Add class +
         </button>
       </div>
+      <button className={styles.signout} onClick={handleSignout}>
+        Sign out
+      </button>
 
       {modalVisible && (
         <div className={styles.modalOverlay} onClick={closeModal}>

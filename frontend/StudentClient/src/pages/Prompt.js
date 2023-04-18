@@ -3,16 +3,23 @@ import styles from "../styles/Prompt.module.css";
 import Likert from "../components/Likert";
 import { io } from "socket.io-client";
 import UserContext from "../userContext";
-import { useLocation } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
 
 function Prompt() {
   const [score, setScore] = useState();
   const [isPrompting, setIsPrompting] = useState(false);
   const [socket, setSocket] = useState();
   const { userId } = useContext(UserContext);
+  const navigate = useNavigate();
   const location = useLocation();
   const searchParams = new URLSearchParams(location.search);
   const classCode = searchParams.get("classCode");
+
+  useEffect(() => {
+    if (!userId) {
+      navigate("/");
+    }
+  }, [userId]);
 
   useEffect(() => {
     if (socket) {

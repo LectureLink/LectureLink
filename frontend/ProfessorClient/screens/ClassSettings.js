@@ -155,7 +155,7 @@ function ClassSettings({ route }) {
             setModalVisible(true);
           }}
         >
-          <Text style={styles.buttonText}>View Sessions</Text>
+          <Text style={styles.buttonText}>View Session History</Text>
         </TouchableOpacity>
         <Modal animationType="slide" transparent={true} visible={modalVisible}>
           <TouchableOpacity

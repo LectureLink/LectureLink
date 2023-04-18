@@ -17,6 +17,7 @@ function ClassSettings({ route }) {
   const navigation = useNavigation();
   const { classId, title } = route.params;
 
+  // Retrieves the settings information of a given class Id.
   async function fetchData() {
     try {
       console.log(classId);
@@ -32,10 +33,13 @@ function ClassSettings({ route }) {
       );
     }
   }
+
+  // Fetches the settings data when the page loads.
   useEffect(() => {
     fetchData();
   }, []);
 
+  // Saves the class information that has been inputted.
   async function handleSave() {
     try {
       const response = await fetch(
@@ -65,6 +69,7 @@ function ClassSettings({ route }) {
     }
   }
 
+  // Navigates back to the classes page.
   function handleCancel() {
     navigation.navigate("Classes");
   }

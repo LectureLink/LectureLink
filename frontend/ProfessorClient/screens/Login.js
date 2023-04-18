@@ -20,7 +20,8 @@ const Login = () => {
 
   const { setUserId } = useContext(UserContext);
 
-  const handleLogin = async () => {
+  // Handles logging in if professor account exists.
+  async function handleLogin() {
     try {
       const response = await fetch("http://localhost:8081/login", {
         method: "POST",
@@ -51,8 +52,9 @@ const Login = () => {
     } catch (error) {
       console.error(error);
     }
-  };
+  }
 
+  // Alerts that forgot password is not a current feature
   const handleForgotPassword = () => {
     Alert.alert(
       "Feature Not Available Yet",
@@ -62,6 +64,7 @@ const Login = () => {
     );
   };
 
+  // Navigates to the signup page.
   const handleSignup = () => {
     navigation.navigate("Signup");
   };

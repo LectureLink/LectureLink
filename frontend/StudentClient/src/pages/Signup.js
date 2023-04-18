@@ -11,6 +11,8 @@ const Signup = () => {
 
   const { setUserId } = useContext(UserContext);
 
+  // Creates a new account based on inputed email and password.
+  // Sets UserContext to the new userId.
   const handleSignup = async () => {
     try {
       const response = await fetch("http://localhost:8081/student", {

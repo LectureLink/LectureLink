@@ -220,3 +220,20 @@ export async function getClassesByStudentId(
 
   return classes;
 }
+
+/**
+ * Gets all session of given class id.
+ *
+ * @param classId number of class Id
+ * @returns promise of Session[]
+ */
+export async function getSessionsByClassId(
+  classId: number
+): Promise<Session[]> {
+  const sessions = await prisma.session.findMany({
+    where: {
+      classId: classId,
+    },
+  });
+  return sessions;
+}

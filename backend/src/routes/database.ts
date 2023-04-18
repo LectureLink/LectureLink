@@ -7,6 +7,7 @@ import {
   getClassById,
   getClassesByStudentId,
   getClassesTaughtByProfessor,
+  getSessionsByClassId,
 } from "../functions/database";
 
 /**
@@ -143,5 +144,25 @@ export const getClassesByStudentIdRouteHandler = async (
   } catch (error) {
     console.error(error);
     res.status(500).json({ message: "Unable to retrieve classes" });
+  }
+};
+
+/**
+ * Handles functionality for getting all of the session of a class.
+ *
+ * @param req request to server
+ * @param res response from server
+ */
+export const getSessionsByClassIdRouteHandler = async (
+  req: Request,
+  res: Response
+) => {
+  const classId = parseInt(req.params.classId);
+  try {
+    const sessions = await getSessionsByClassId(classId);
+    res.json(sessions);
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({ message: "Unable to retrieve sessions" });
   }
 };

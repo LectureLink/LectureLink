@@ -5,12 +5,14 @@ const Likert = ({ question, responses, onChange, onEngagementSubmission }) => {
   const [selectedEmoji, setSelectedEmoji] = useState(null);
   const [selectedValue, setSelectedValue] = useState(null);
 
+  // Changes the value of score, emoji.
   const handleResponseChange = (value, emoji) => {
     onChange(value);
     setSelectedEmoji(emoji);
     setSelectedValue(value);
   };
 
+  // Passes the submission event up to the prompt parent.
   function handleSubmit() {
     onEngagementSubmission();
   }

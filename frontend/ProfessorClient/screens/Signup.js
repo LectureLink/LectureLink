@@ -19,6 +19,8 @@ const Signup = () => {
 
   const { setUserId } = useContext(UserContext);
 
+  // Handles createing a new professor account.
+  // Also navigates to the classes page if successful.
   const handleSignup = async () => {
     try {
       const response = await fetch("http://localhost:8081/professors", {

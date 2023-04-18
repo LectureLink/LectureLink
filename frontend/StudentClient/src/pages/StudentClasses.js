@@ -13,12 +13,15 @@ function StudentClasses() {
   const { userId, setUserId } = useContext(UserContext);
   const navigate = useNavigate();
 
+  // Checks if a user is actually logged in when component first renders.
+  // If not, the user is directed to the login page.
   useEffect(() => {
     if (!userId) {
       navigate("/");
     }
   }, [userId]);
 
+  // Fetches data regarding the classes that the user is enrolled in.
   async function fetchData() {
     try {
       const response = await fetch(
@@ -37,11 +40,14 @@ function StudentClasses() {
     }
   }
 
+  // User effect that fetches the student's class data when page renders.
   useEffect(() => {
     fetchData();
   }, []);
 
-  const addClass = async () => {
+  // Adds a class to the list of classes that student is enrolled in if the
+  // class with the given class Id exists.
+  async function addClass() {
     try {
       console.log(userId);
       console.log(classId);
@@ -66,16 +72,19 @@ function StudentClasses() {
         `Add Class Failed. We were not able to add the class of id ${classId}.`
       );
     }
-  };
+  }
 
-  const closeModal = () => {
+  // Closes the modal.
+  function closeModal() {
     setModalVisible(false);
-  };
+  }
 
-  const handleSignout = () => {
+  // Sends the user back to the login page after signout.
+  // UserContext is cleared.
+  function handleSignout() {
     setUserId(null);
     navigate("/");
-  };
+  }
 
   return (
     <div className={styles.container}>

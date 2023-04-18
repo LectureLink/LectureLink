@@ -17,6 +17,7 @@ const Class = (props) => {
     setModalVisible(false);
   }
 
+  // Saves the room code for when the page moves to the prompt
   function handleSave() {
     const searchParams = new URLSearchParams(location.search);
 

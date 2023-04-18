@@ -30,6 +30,7 @@ import {
 import { getComprehensionLevelRouteHandler } from "./routes/comprehensionScore";
 import { updateClassSettingsRouteHandler } from "./routes/updateSettings";
 import { getAverageEngagementLevelRouteHandler } from "./routes/averageEngagement";
+import { getSessionsByClassIdRouteHandler } from "./routes/database";
 
 app.use(
   cors({
@@ -123,6 +124,9 @@ app.get(
   "/sessions/:sessionId/average-engagement-level",
   getAverageEngagementLevelRouteHandler
 );
+
+// Gets all of the session of a given class id.
+app.get("/classes/:classId/session", getSessionsByClassIdRouteHandler);
 
 /**
  * /////////////////////////////////////////////////////////////////////

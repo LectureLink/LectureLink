@@ -7,16 +7,23 @@ import {
   TextInput,
   Switch,
   TouchableOpacity,
+  Modal,
+  Alert,
+  ScrollView,
 } from "react-native";
 import colors from "../styles/colors";
 import { useNavigation } from "@react-navigation/native";
+import SessionInfo from "../components/SessionInfo";
 
 function ClassSettings({ route }) {
   const [cooldownTime, setCooldownTime] = useState(0);
   const [isPassiveCheckIn, setIsPassiveCheckIn] = useState(false);
   const navigation = useNavigation();
   const { classId, title } = route.params;
+  const [modalVisible, setModalVisible] = useState(false);
+  const [sessions, setSessions] = useState([]);
 
+  // Retrieves the settings information of a given class Id.
   async function fetchData() {
     try {
       console.log(classId);
@@ -32,10 +39,13 @@ function ClassSettings({ route }) {
       );
     }
   }
+
+  // Fetches the settings data when the page loads.
   useEffect(() => {
     fetchData();
   }, []);
 
+  // Saves the class information that has been inputted.
   async function handleSave() {
     try {
       const response = await fetch(
@@ -65,8 +75,52 @@ function ClassSettings({ route }) {
     }
   }
 
+  // Navigates back to the classes page.
   function handleCancel() {
     navigation.navigate("Classes");
+  }
+
+  // Gets the session information.
+  async function fetchSessions() {
+    try {
+      const response = await fetch(
+        `http://localhost:8081/classes/${classId}/session`
+      );
+      const data = await response.json();
+      const updatedSessions = await Promise.all(
+        data.map(async (session) => {
+          const averageEngagement = await getAverageForSession(session.id);
+          return {
+            ...session,
+            averageEngagement,
+          };
+        })
+      );
+      setSessions(updatedSessions);
+    } catch (error) {
+      Alert.alert(
+        "Unable to retrieve session information",
+        "We could not find the sessions for your class. Please try again.",
+        [{ text: "OK" }]
+      );
+    }
+  }
+
+  // Gets the average engagement level for a particular session.
+  async function getAverageForSession(sessionId) {
+    try {
+      const response = await fetch(
+        `http://localhost:8081/sessions/${sessionId}/average-engagement-level`
+      );
+      const data = await response.json();
+      return data;
+    } catch (error) {
+      Alert.alert(
+        "Unable to retrieve session averages",
+        "We could not find the average engagement level for your class session. Please try again.",
+        [{ text: "OK" }]
+      );
+    }
   }
 
   return (
@@ -94,6 +148,34 @@ function ClassSettings({ route }) {
             onValueChange={setIsPassiveCheckIn}
           />
         </View>
+        <TouchableOpacity
+          style={styles.viewSessionsButton}
+          onPress={() => {
+            fetchSessions();
+            setModalVisible(true);
+          }}
+        >
+          <Text style={styles.buttonText}>View Session History</Text>
+        </TouchableOpacity>
+        <Modal animationType="slide" transparent={true} visible={modalVisible}>
+          <TouchableOpacity
+            style={styles.centeredView}
+            onPress={() => setModalVisible(false)}
+          >
+            <View style={styles.modalView}>
+              <Text style={styles.modalTitle}>Session History</Text>
+              <ScrollView style={styles.scrollView}>
+                {sessions.map((ses) => (
+                  <SessionInfo
+                    key={ses.id}
+                    date={ses.date}
+                    avgEngagement={ses.averageEngagement.averageEngagementLevel}
+                  />
+                ))}
+              </ScrollView>
+            </View>
+          </TouchableOpacity>
+        </Modal>
       </View>
       <View style={styles.buttonContainer}>
         <TouchableOpacity style={styles.cancelButton} onPress={handleCancel}>
@@ -191,6 +273,70 @@ const styles = StyleSheet.create({
     color: colors.white,
     fontWeight: "bold",
     fontSize: 16,
+    textAlign: "center",
+  },
+  viewSessionsButton: {
+    backgroundColor: colors.primaryBlue,
+    paddingVertical: 10,
+    paddingHorizontal: 20,
+    borderRadius: 5,
+    marginTop: 20,
+    alignSelf: "center",
+    width: "100%",
+    justifyContent: "center",
+  },
+  centeredView: {
+    flex: 1,
+    justifyContent: "center",
+    alignItems: "center",
+    marginTop: 22,
+  },
+  modalView: {
+    margin: 20,
+    backgroundColor: colors.white,
+    borderRadius: 20,
+    padding: 20,
+    alignItems: "center",
+    shadowColor: colors.black,
+    shadowOffset: {
+      width: 0,
+      height: 2,
+    },
+    shadowOpacity: 0.25,
+    shadowRadius: 4,
+    elevation: 5,
+    width: "80%",
+  },
+  modalTitle: {
+    fontSize: 24,
+    fontWeight: "bold",
+    marginBottom: 15,
+    textAlign: "center",
+  },
+  scrollView: {
+    maxHeight: 400,
+    marginTop: 20,
+  },
+
+  sessionInfoContainer: {
+    flexDirection: "row",
+    alignItems: "center",
+    justifyContent: "center",
+    paddingVertical: 10,
+    borderBottomWidth: 1,
+    borderBottomColor: colors.gray,
+  },
+
+  sessionInfoLabel: {
+    flex: 1,
+    fontSize: 16,
+    fontWeight: "bold",
+    color: colors.black,
+  },
+
+  sessionInfoValue: {
+    fontSize: 16,
+    color: colors.black,
   },
 });
 

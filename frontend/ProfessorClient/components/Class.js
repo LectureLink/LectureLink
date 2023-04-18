@@ -6,6 +6,7 @@ import { useNavigation } from "@react-navigation/native";
 const Class = (props) => {
   const navigation = useNavigation();
 
+  // Navigates to the settings.
   function handleToSettings() {
     navigation.navigate("Class Settings", {
       classId: props.id,
@@ -13,6 +14,7 @@ const Class = (props) => {
     });
   }
 
+  // Creates a session instance.
   async function handleSessionCreation() {
     try {
       const response = await fetch(
@@ -44,6 +46,7 @@ const Class = (props) => {
     }
   }
 
+  // Creates a room (socket).
   async function createRoom(sessionId) {
     try {
       const response = await fetch(
@@ -70,6 +73,7 @@ const Class = (props) => {
     }
   }
 
+  // Navigates to the Device View and creates a session.
   function handleToDeviceView() {
     Alert.alert(
       "Session Confirmation",

@@ -4,13 +4,14 @@ import { Link, useNavigate } from "react-router-dom";
 import styles from "../styles/Login.module.css";
 import logo from "../assets/logo.png";
 
-const Login = () => {
+function Login() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
 
   const { setUserId } = useContext(UserContext);
   const navigate = useNavigate();
 
+  // Verifies if user can login and sets userContext if accepted.
   const handleLogin = async () => {
     try {
       const response = await fetch("http://localhost:8081/login", {
@@ -41,14 +42,11 @@ const Login = () => {
     }
   };
 
+  // Alerts that forgot password is not yet a feature
   const handleForgotPassword = () => {
     alert(
       "Feature Not Available Yet\nLook forward to this feature in our next release!"
     );
-  };
-
-  const handleSignup = () => {
-    navigate("/signup");
   };
 
   return (
@@ -100,6 +98,6 @@ const Login = () => {
       </button>
     </div>
   );
-};
+}
 
 export default Login;

@@ -19,6 +19,8 @@ function DeviceView({ route }) {
     // Future code here...
   }
 
+  // Handles the sending of a request for a push notification to be sent to students
+  // Also retrieves all inputed information in its given time span (hardcoded at 30 seconds)
   async function handleRequestEngagement() {
     try {
       const response = await fetch(
@@ -50,6 +52,8 @@ function DeviceView({ route }) {
     }, 1000);
   }
 
+  // Fetches all engagement data in a given timespan (hardcoded at 30 seconds)
+  // for the specific session.
   async function fetchData() {
     try {
       const response = await fetch(
@@ -70,6 +74,7 @@ function DeviceView({ route }) {
     }
   }
 
+  // Deletes the room code when page is unmounted.
   useEffect(() => {
     return async () => {
       try {

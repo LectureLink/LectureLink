@@ -15,12 +15,16 @@ function Prompt() {
   const searchParams = new URLSearchParams(location.search);
   const classCode = searchParams.get("classCode");
 
+  // Checks if the user is actually logged in.
+  // If not, sends the user back to the login page.
   useEffect(() => {
     if (!userId) {
       navigate("/");
     }
   }, [userId]);
 
+  // Checks if a push notification has been sent to the
+  // socket when the socket changes.
   useEffect(() => {
     if (socket) {
       socket.on("pushNotification", () => {
@@ -28,6 +32,7 @@ function Prompt() {
       });
     }
 
+    // disconnects socket when page is unmounted.
     return () => {
       if (socket) {
         socket.disconnect();
@@ -35,9 +40,9 @@ function Prompt() {
     };
   }, [socket]);
 
+  // Connects a student with the room of a given class.
   useEffect(() => {
     const currSocket = io("http://localhost:8081");
-    console.log("STudent" + " " + userId);
 
     currSocket.on("connect", () => {
       console.log("Connected to the server");
@@ -58,6 +63,7 @@ function Prompt() {
     });
   }, []);
 
+  // Sends the engagement information of the student to the server.
   async function handleSubmission() {
     try {
       const response = await fetch(

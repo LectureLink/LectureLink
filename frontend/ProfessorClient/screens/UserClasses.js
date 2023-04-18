@@ -22,6 +22,7 @@ function UserClasses() {
 
   const { userId } = useContext(UserContext);
 
+  // Retrieves class data for the given professor.
   async function fetchData() {
     try {
       const response = await fetch(
@@ -42,11 +43,13 @@ function UserClasses() {
     }
   }
 
+  // Fetches data on page mounting.
   useEffect(() => {
     fetchData();
   }, []);
 
-  const addClass = async () => {
+  // Creates a class that a professor inputs the name of.
+  async function addClass() {
     try {
       const response = await fetch("http://localhost:8081/classes", {
         method: "POST",
@@ -71,7 +74,7 @@ function UserClasses() {
         [{ text: "OK" }]
       );
     }
-  };
+  }
 
   const closeModal = () => {
     setModalVisible(false);

@@ -34,7 +34,7 @@ const Signup = () => {
       const data = await response.json();
       if (response.ok) {
         setUserId(data.userId);
-        navigation.navigate("UserClasses");
+        navigation.navigate("Classes");
         setEmail("");
         setPassword("");
       }

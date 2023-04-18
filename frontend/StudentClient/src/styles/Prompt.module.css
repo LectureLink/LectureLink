@@ -16,4 +16,9 @@
   display: flex;
   justify-content: center;
   align-items: center;
+  min-height: 400px;
+}
+
+.mainContent span {
+  font-size: 24px;
 }

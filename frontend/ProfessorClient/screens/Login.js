@@ -36,7 +36,7 @@ const Login = () => {
       const data = await response.json();
       if (response.ok) {
         setUserId(data.professor.userId);
-        navigation.navigate("UserClasses");
+        navigation.navigate("Classes");
         setEmail("");
         setPassword("");
       } else {
@@ -147,6 +147,7 @@ const styles = StyleSheet.create({
     fontSize: 16,
     color: colors.primaryBlue,
     textDecorationLine: "none",
+    fontWeight: "bold",
   },
   label: {
     fontSize: 16,
@@ -193,6 +194,7 @@ const styles = StyleSheet.create({
     marginLeft: "auto",
     color: colors.primaryBlue,
     fontSize: 16,
+    fontWeight: "bold",
   },
   button: {
     backgroundColor: colors.primaryBlue,

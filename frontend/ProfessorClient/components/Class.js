@@ -7,7 +7,7 @@ const Class = (props) => {
   const navigation = useNavigation();
 
   function handleToSettings() {
-    navigation.navigate("ClassSettings", {
+    navigation.navigate("Class Settings", {
       classId: props.id,
       title: props.title,
     });
@@ -27,7 +27,7 @@ const Class = (props) => {
       const data = await response.json();
       if (response.ok) {
         const roomCode = await createRoom(data.id);
-        navigation.navigate("DeviceView", {
+        navigation.navigate("Device View", {
           sessionId: data.id,
           title: props.title,
           roomCode,

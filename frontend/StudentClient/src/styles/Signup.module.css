@@ -1,7 +1,3 @@
-* {
-  box-sizing: border-box;
-}
-
 .container {
   display: flex;
   flex-direction: column;
@@ -20,20 +16,8 @@
   margin-bottom: 1rem;
 }
 
-.signupPrompt {
-  display: flex;
-  justify-content: center;
-  margin-bottom: 1rem;
-}
-
-.signupLink {
-  color: var(--primaryBlue);
-  margin-left: 0.5rem;
-  text-decoration: none;
-}
-
 .inputContainer {
-  width: 20%;
+  width: 50%;
   display: flex;
   flex-direction: column;
   align-items: flex-start;
@@ -55,33 +39,11 @@ input {
   width: 100%;
 }
 
-.rememberMeForgot {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  width: 20%;
-  margin: 0.5rem auto;
-}
-
-.rememberMe {
-  display: flex;
-  align-items: center;
-}
-
-.rememberMe span {
-  white-space: nowrap;
-}
-
-.forgotPassword {
-  color: var(--primaryBlue);
-  text-decoration: none;
-}
-
 .signIn {
   display: block;
-  margin: 1rem auto;
+  margin: 3rem auto;
   padding: 0.5rem;
-  width: 20%;
+  width: 35%;
   border: none;
   border-radius: 3px;
   background-color: var(--primaryBlue);

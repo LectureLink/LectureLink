@@ -4,11 +4,20 @@ import colors from "../styles/colors";
 
 function ScoreDisplay(props) {
   let color = colors.ridRed;
+  if (props.score >= 25) {
+    color = colors.badOrange;
+  }
   if (props.score >= 50) {
     color = colors.okYellow;
   }
   if (props.score >= 75) {
+    color = colors.generousGreen;
+  }
+  if (props.score >= 85) {
     color = colors.goodGreen;
+  }
+  if (props.score == null || props.isCountdown) {
+    color = colors.neutral;
   }
 
   const [scoreText, setScoreText] = useState("");
@@ -19,7 +28,7 @@ function ScoreDisplay(props) {
     } else if (props.score === null) {
       setScoreText("Request data");
     } else {
-      setScoreText(props.score.toFixed(2));
+      setScoreText(props.isCountdown ? props.score : props.score.toFixed(2));
     }
   }, [props.score]);
 

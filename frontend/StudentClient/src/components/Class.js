@@ -38,19 +38,19 @@ const Class = (props) => {
       {modalVisible && (
         <div className={styles.modalOverlay} onClick={handleCancel}>
           <div className={styles.modal} onClick={(e) => e.stopPropagation()}>
-            <img src={logo} alt="Logo" />
-            <div>Class Code</div>
+            <img src={logo} alt="Logo" className={styles.modalLogo} />
+            <h3>Room Code</h3>
             <input
               type="text"
-              placeholder="Enter Class Code"
+              placeholder="Enter Room Code"
               value={classCode}
               onChange={(e) => setClassCode(e.target.value)}
             />
-            <div>
-              <button className={styles.modalButton} onClick={handleCancel}>
+            <div className={styles.modalButtonContainer}>
+              <button className={styles.modalCancel} onClick={handleCancel}>
                 Cancel
               </button>
-              <button className={styles.modalButton} onClick={handleSave}>
+              <button className={styles.modalSave} onClick={handleSave}>
                 Enter Session
               </button>
             </div>

@@ -80,12 +80,12 @@ function Prompt() {
   }
 
   const likertOptions = {
-    question: "How was this part of the lecture?",
+    question: "How clear was this part of the lecture?",
     responses: [
       { value: 0, text: "0%", emoji: "😭", color: "--ridRed" },
-      { value: 25, text: "25%", emoji: "🤨", color: "--ridRed" },
+      { value: 25, text: "25%", emoji: "🤨", color: "--badOrange" },
       { value: 50, text: "50%", emoji: "😐", color: "--okYellow" },
-      { value: 75, text: "75%", emoji: "🙂", color: "--goodGreen" },
+      { value: 75, text: "75%", emoji: "🙂", color: "--generousGreen" },
       { value: 100, text: "100%", emoji: "😁", color: "--goodGreen" },
     ],
     onChange: (val) => {

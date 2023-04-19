@@ -1,0 +1,16 @@
+version: "3.9"
+services:
+  professor-client:
+    build: ./frontend/ProfessorClient
+    ports:
+      - "19000:19000"
+      - "19001:19001"
+      - "19002:19002"
+  student-client:
+    build: ./frontend/StudentClient
+    ports:
+      - "3001:3000"
+  backend:
+    build: ./backend
+    ports:
+      - "8081:8081"

@@ -34,7 +34,11 @@ import { getSessionsByClassIdRouteHandler } from "./routes/database";
 
 app.use(
   cors({
-    origin: ["http://localhost:3001", "exp://10.110.14.70:19000"],
+    origin: [
+      "http://localhost:3001",
+      "exp://10.110.14.70:19000",
+      "http://localhost:19006",
+    ],
   })
 );
 

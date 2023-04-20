@@ -17,7 +17,7 @@ and participation during lectures. With just a click, professors can send a prom
 allowing them to give real-time feedback. This interactive approach to teaching and learning not only enhances comprehension but also
 encourages participation and collaboration in the classroom. LectureLink is the ultimate tool for professors who want to create an engaging
 classroom environment that facilitates valuable learning experiences for their students.
-_This product is a work in progress. Please refer to the_ [Future Features](#futurefeatures)
+_This product is a work in progress. Please refer to the_ [Future Features](#future-features)
 _section to learn about features to come in future releases._
 
 # Contents
@@ -38,6 +38,7 @@ _section to learn about features to come in future releases._
   - [Structure](#structure)
   - [Routing](#routing)
   - [Dependency list](#dependency-list)
+- [Future Features](#future-features)
 - [License](#license)
 
 # Structure
@@ -404,7 +405,7 @@ Find it inside the `./frontend/package.json` file.
 
 # Future Features
 
-**The following is a list of new features that are to be added in future releases of the product:**
+*The following is a list of new features that are to be added in future releases of the product:*
 
 # License
 

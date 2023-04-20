@@ -402,6 +402,10 @@ Find it inside the `./backend/package.json` file.
 
 Find it inside the `./frontend/package.json` file.
 
+# Future Features
+
+**The following is a list of new features that are to be added in future releases of the product:**
+
 # License
 
 **LectureLink**  

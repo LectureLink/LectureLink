@@ -1,16 +1,23 @@
 version: "3.9"
+
 services:
-  professor-client:
+  backend:
+    build: ./backend
+    container_name: backend
+    ports:
+      - "8081:8081"
+
+  professor_client:
     build: ./frontend/ProfessorClient
+    container_name: professor_client
     ports:
       - "19000:19000"
       - "19001:19001"
       - "19002:19002"
-  student-client:
+      - "19006:19006"
+
+  student_client:
     build: ./frontend/StudentClient
+    container_name: student_client
     ports:
       - "3001:3000"
-  backend:
-    build: ./backend
-    ports:
-      - "8081:8081"

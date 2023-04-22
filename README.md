@@ -76,6 +76,7 @@ _section to learn about features to come in future releases._
 - Docker (optional) - [Install](https://docs.docker.com/get-docker)
 - Node.js v18 - [Install](https://nodejs.org/en/download) / [NVM](https://nodejs.org/en/download/package-manager/#nvm)
 - Expo Go - [Install](https://apps.apple.com/us/app/expo-go/id982107779)
+- XCode - [Install](https://apps.apple.com/us/app/xcode/id497799835?mt=12)
 
 # Preparation
 

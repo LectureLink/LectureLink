@@ -91,16 +91,36 @@ Preparing before the project setup.
 
 ## Automated setup
 
-Run `./scripts/setup.sh` from the root folder and follow the instructions.
+*To build the application and run its containers together:*
+```docker compose up --build```
 
-Jump to the [usage section](#usage)!
+*To remove the containers and stop running the application:*
+```docker compose down```
+
+**NOTE:**
+***This application was designed for the Professor Client to be run in a mobile environment. However, with the docker implementation, this is not possible. The closest substitute is opening expo in the web. However, expo web does not provide the full set of features required for running this application to its full potential. One example is the lack of alerts in expo web that are a crucial aspect of the design for the mobile client. Furthermore, the designs are elongated by their widths due to the differences in window/screen sizes of web and mobile clients. Hence, it is highly recommended you use the manual setup without Docker to get the full application experience.***
+
 
 ## Manual setup
 
-1.  Install dependencies
-2.  Add SSL files
-3.  Add JWT files
-4.  Set env variables
+*Backend*
+1. Enter the ```/backend``` directory.
+2. Run ```npm install``` to install all dependencies.
+3. Run ```npx prisma generate``` to start Prisma ORM.
+4. Run ```nodemon src/index.ts``` to start the server.
+
+*Professor Client*
+1. Enter the ```/frontend/ProfessorClient``` directory.
+2. Run ```npm install -g expo-cli``` to install expo.
+3. Run ```npm install``` to install all dependencies.
+4. Run ```expo start``` to start the expo client.
+5. Access the client at ```http://localhost:19006```
+
+*Student Client*
+1. Enter the ```/frontend/StudentClient``` directory.
+2. Run ```npm install``` to install all dependencies.
+3. Run ```npm start``` to start the react client.
+4. Access the client at ```http://localhost:3001```
 
 # Usage
 

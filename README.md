@@ -174,7 +174,13 @@ Preparing before the project setup.
 
 # Future Features
 
-*The following is a list of new features that are to be added in future releases of the product:*
+*The following is a list of new features that could be added in future releases of the product:*
+1. Secure class joining: A Professor should be able to remove a student from a class.
+2. Deletion of classes: Students and Professors cannot delete classes after adding them as of now.
+3. Improved session management: Use cookies to manage user sessions.
+4. Passive check-ins: While the database has been configured to store information regarding passive checkins, the feature is not yet fully implemented by the server.
+5. Complete error routes: There exist unused Error components for handling unauthorized or non-existing routes. 
+6. Ability to influence presentations through the "Device View". Clicking the "Prev" and "Next" buttons currently do nothing. The addition of this feature would likely involve extensive changes to the current codebase.
 
 # License
 

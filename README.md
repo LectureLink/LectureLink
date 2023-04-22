@@ -33,11 +33,6 @@ _section to learn about features to come in future releases._
 - [Setup](#setup)
   - [Automated setup](#automated-setup)
   - [Manual setup](#manual-setup)
-- [Developing](#developing)
-  - [Summary](#summary)
-  - [Structure](#structure)
-  - [Routing](#routing)
-  - [Dependency list](#dependency-list)
 - [Future Features](#future-features)
 - [License](#license)
 
@@ -107,301 +102,54 @@ Jump to the [usage section](#usage)!
 3.  Add JWT files
 4.  Set env variables
 
-### Install dependencies
+# Usage
 
-Run `yarn install` inside the backend folder.
+**Professor:**
+1. Login to your account using your email and password OR Signup for an account using your email and provide a password.
 
-Run `yarn install` inside the frontend folder.
+2. Setting up class
+   - Add your class by clicking on the "Add class +" button in blue.
+   - Type the name of your class in the modal that pops up on your screen.
+   
+3. Access your class's unique "Class ID" in the "Settings" of your given class. Share that class Id with your students so they can join the class.
 
-> Run `yarn install` inside the root folder.
+4. Start a class session
+   - Click the "Enable" and confirm with the popup to start a class session. You will see a "Device View."
+   - Inform your students of the unique "Room code" so they can join your class session.
 
-### Add SSL files
+5. Retrieve engagement data
+   - When you want to retrieve engagement data, click the "Request Engagement" button in your "Device View."
+   - Wait for the timer to expire and view the results of the engagement request.
+   - Repeat as many times as desired during the duration of your class.
 
-Put your `cert.pem` and `key.pem` files inside the `./backend/.ssl/` folder.
+6. Exiting a session
+   - Exit a session using the back arrow.
 
-If you don't have these files, you can generate a self-signed SSL certificate, check the [SSL setup](#ssl-setup) section.
+7. Look at past session averages
+   - Open the class settings (click the "Settings" button).
+   - Click the "Session History" button. The modal will display the average engagement of entire sessions that you have started and ended in the past.
 
-### Add JWT files
+**Students:**
+1. Login to your account using your email and password OR Signup for an account using your email and provide a password.
 
-Put your `jwt.secret.pem` and `jwt.public.pem` files inside the `./backend/.jwt/` folder.
+2. Setting up class
+   - Add your class by clicking on the "Add class +" button in blue.
+   - Type the class id of your class in the modal that pops up on your screen.
 
-If you don't have these files, check the [JWT setup](#jwt-setup) section to generate them.
+3. Enter a class session
+   - Click the "Open" button.
+   - Enter the unique "Room code" in the modal to successfully enter your class session.
 
-### Set env variables
+4. Provide engagement data
+   - When your professor requests engagement data, your screen will change.
+   - Use the engagmenent prompt and likert scale to communicate your comprehension and engagement.
+   - Click "Submit" in a timely manner (within 30 secs) to submit your engagement data to your professor.
+   - Wait for your professor to request additional prompts.
 
-#### Backend
+5. Exiting a session
+   - Exit a session using the back arrow.
 
-Create `.env.development` and `.env.production` files inside the `./backend/.env/` folder.
-
-Use port 3001 in development and port 8080 in production.
-On the frontend use ports 3000 and 8080.
-
-Example for development (include all):
-
-```
-HOST=0.0.0.0
-PORT=3001
-FRONTEND_HOST=localhost
-FRONTEND_PORT=3000
-SSL_KEY=[SSL_KEY_FILE_NAME]
-SSL_CRT=[SSL_CRT_FILE_NAME]
-JWT_SECRET=[JWT_SECRET_KEY_FILE_NAME]
-JWT_PUBLIC=[JWT_PUBLIC_KEY_FILE_NAME]
-COOKIE_SECRET=[COOKIE_SECRET_KEY]
-DATABASE_URL=[MONGOLAB_DB_URL]
-EMAIL_USER=[EMAIL_USER]
-EMAIL_PASS=[EMAIL_PASSWORD]
-EMAIL_FROM=[EMAIL_FROM]
-```
-
-Located at `./backend/.env/.env.development`.
-
-> If you change the ports, change them in the other env files too (root, frontend, cypress).
-
-#### Frontend
-
-Create `.env.development` and `.env.production` files inside the `./frontend/` folder.
-
-Use port 3000 in development and port 8080 in production.
-On the backend use ports 3001 and 8080.
-
-Example (include all):
-
-```
-REACT_APP_HOST=0.0.0.0
-REACT_APP_PORT=3000
-REACT_APP_BACKEND_HOST=localhost
-REACT_APP_BACKEND_PORT=3001
-SKIP_PREFLIGHT_CHECK=true
-CHOKIDAR_USEPOLLING=true
-```
-
-Located at `./frontend/.env.development`.
-
-> If you change the ports, change them in the other env files too (root, backend, cypress).
-
-#### Docker
-
-Create `.env` file inside the root folder.
-
-Use ports 3000/3001 for development and port 8080 for production.
-
-Example (include all):
-
-```
-DEVELOPMENT_BACKEND_PORT=3001
-DEVELOPMENT_FRONTEND_PORT=3000
-PRODUCTION_PORT=8080
-```
-
-Located at `./.env`.
-
-> If you change the ports, change them in the other env files too (backend, frontend, cypress).
-
-# Developing
-
-## Summary
-
-### Backend
-
-The most important files of are in the `./src/core/` folder, the server won't work without them. There are optional files in the `./src/common/` and `./src/features/` folders, these are not necessary to run the server.
-
-The `./src/index.ts` is the main file, where the server's listen function will load the configuration and start the database connection, the routes, the server, and the Socket.IO server.
-
-### Frontend
-
-Similarly to the backend, find the important files in the `./src/core/` folder, while the optional files are in the `./src/common/` and `./src/features/` folders.
-
-Based on the create-react-app using the Redux Toolkit, TypeScript template. Loads the routing and other common components wrapped by Redux in the `./src/index.tsx` and `./src/app.tsx` files.
-
-## Structure
-
-| Content              | Path          |
-| :------------------- | :------------ |
-| Backend code         | `./backend/`  |
-| Frontend code        | `./frontend/` |
-| Production build     | `./build/`    |
-| Bash scripts         | `./scripts/`  |
-| Docker env file      | `./.env`      |
-| Docker compose files | `./`          |
-| Configuration files  | `./`          |
-
-### Backend structure
-
-| Content               | Path              |
-| :-------------------- | :---------------- |
-| Environment variables | `./.env/`         |
-| SSL files             | `./.ssl/`         |
-| JWT files             | `./.jwt/`         |
-| Public files          | `./public/`       |
-| Main logic            | `./src/`          |
-| Core functions        | `./src/core/`     |
-| Features              | `./src/features/` |
-| Common components     | `./src/common/`   |
-| Docker files          | `./`              |
-| Configuration files   | `./`              |
-
-#### Structure of a feature
-
-| Content               | Example                                 |
-| :-------------------- | :-------------------------------------- |
-| Entry point           | `./src/features/feat/index.ts`          |
-| Main functions        | `./src/features/feat/feat.ts`           |
-| Routes                | `./src/features/feat/feat.routes.ts`    |
-| Database model        | `./src/features/feat/feat.model.ts`     |
-| Interface             | `./src/features/feat/feat.interface.ts` |
-| Integration tests     | `./src/features/feat/feat.test.ts`      |
-| Swagger documentation | `./src/features/feat/feat.docs.yaml`    |
-| Components            | `./src/features/feat/components/`       |
-| Email templates       | `./src/features/feat/templates/`        |
-
-#### Details of the ./src/ folder
-
-| Content            | Path                     |
-| :----------------- | :----------------------- |
-| Configuration      | `./src/core/config/`     |
-| Server declaration | `./src/core/server/`     |
-| Authentication     | `./src/features/auth/`   |
-| Documentation      | `./src/features/docs/`   |
-| Home functions     | `./src/features/home/`   |
-| Socket functions   | `./src/features/socket/` |
-| User functions     | `./src/features/user/`   |
-| Common components  | `./src/common/`          |
-
-### Frontend structure
-
-| Content                       | Path               |
-| :---------------------------- | :----------------- |
-| Environment variables         | `./.env.*`         |
-| Public files                  | `./public/`        |
-| Main logic                    | `./src/`           |
-| Core functions                | `./src/core/`      |
-| Features                      | `./src/features/`  |
-| Common components             | `./src/common/`    |
-| Images to use in tsx files    | `./public/images/` |
-| (Images to use in scss files) | `./src/images/`    |
-| Docker files                  | `./`               |
-| Configuration files           | `./`               |
-
-#### Structure of a feature
-
-| Content           | Example                                  |
-| :---------------- | :--------------------------------------- |
-| Entry point       | `./src/features/feat/index.ts`           |
-| Main functions    | `./src/features/feat/feat.tsx`           |
-| Interface         | `./src/features/feat/feat.interface.ts`  |
-| Integration tests | `./src/features/feat/feat.test.tsx`      |
-| Redux slice       | `./src/features/feat/feat.slice.ts`      |
-| Redux slice tests | `./src/features/feat/feat.slice.test.ts` |
-| Components        | `./src/features/feat/components/`        |
-
-#### Details of the ./src/ folder
-
-| Content                | Path                              |
-| :--------------------- | :-------------------------------- |
-| Routing component      | `./src/core/routing/`             |
-| Main hooks             | `./src/core/hooks/`               |
-| Redux store            | `./src/core/store/`               |
-| Color themes           | `./src/core/themes/`              |
-| Auth definitions       | `./src/features/auth/auth/`       |
-| Activation page        | `./src/features/auth/activation/` |
-| Join page              | `./src/features/auth/join/`       |
-| Login page             | `./src/features/auth/login/`      |
-| Recovery page          | `./src/features/auth/recovery/`   |
-| Reset page             | `./src/features/auth/reset/`      |
-| Error page             | `./src/features/error/`           |
-| Home page              | `./src/features/home/`            |
-| Profile page           | `./src/features/user/profile/`    |
-| Background component   | `./src/common/background/`        |
-| Kofi component         | `./src/common/kofi/`              |
-| Navigation component   | `./src/common/navigation/`        |
-| Notification component | `./src/common/notification/`      |
-
-### Production build structure
-
-| Content               | Path                |
-| :-------------------- | :------------------ |
-| Environment variables | `./build/.env/`     |
-| SSL files             | `./build/.ssl/`     |
-| JWT files             | `./build/.jwt/`     |
-| Backend               | `./build/index.js`  |
-| Frontend              | `./build/frontend/` |
-| Build logs            | `./build/log/`      |
-| Configuration files   | `./build/`          |
-
-## Routing
-
-### Backend
-
-The main routing handler for the backend:
-
-```
-app.use('/', homeRoute)
-app.use('/api/auth', authRoute)
-app.use('/api/docs', docsRoute)
-app.use('*', error.routing)
-app.use(error.internal)
-```
-
-Source: `./src/core/server/server.routing.ts`
-
-#### Routes
-
-| Description   | Method | Route                      |
-| :------------ | :----- | -------------------------- |
-| Home          | GET    | `/`                        |
-| Documentation | GET    | `/api/docs`                |
-| Auth check    | GET    | `/api/auth/local/check`    |
-| Join          | PUT    | `/api/auth/local/join`     |
-| Resend        | POST   | `/api/auth/local/resend`   |
-| Activate      | POST   | `/api/auth/local/activate` |
-| Login         | POST   | `/api/auth/local/login`    |
-| Logout        | GET    | `/api/auth/local/logout`   |
-| Recover       | POST   | `/api/auth/local/recover`  |
-| Reset         | POST   | `/api/auth/local/reset`    |
-| User profile  | POST   | `/api/user/profile/check`  |
-| User remove   | POST   | `/api/user/profile/remove` |
-
-### Frontend
-
-The main routing handler for the frontend:
-
-```
-<Route path="/" element={<Home />} />
-<Route path="/auth/login" element={<Login />} />
-<Route path="/auth/join" element={<Join />} />
-<Route path="/auth/activation/:id" element={<Activation />} />
-<Route path="/auth/activation/:id/:code" element={<Activation />} />
-<Route path="/auth/recovery" element={<Recovery />} />
-<Route path="/auth/reset/:id" element={<Reset />} />
-<Route path="/auth/reset/:id/:code" element={<Reset />} />
-<Route path="/user/profile" element={<Profile />} />
-<Route
-  path="/error/unauthorized"
-  element={<Error status={401} message="Unauthorized request" />}
-/>
-<Route
-  path="/error/notfound"
-  element={<Error status={404} message="Page not found" />}
-/>
-<Route path="*" element={<Navigate to="/error/notfound" replace />} />
-```
-
-Source: `./src/core/routing/routing.tsx`
-
-## Dependency list
-
-### Root
-
-Find it inside the `./package.json` file.
-
-### Backend
-
-Find it inside the `./backend/package.json` file.
-
-### Frontend
-
-Find it inside the `./frontend/package.json` file.
+[Here is a quick demo video displaying the functionality and UI of the application](https://www.youtube.com/watch?v=EqD8srQgS_U)
 
 # Future Features
 
